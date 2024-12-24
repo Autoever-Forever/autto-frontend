@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "jsx": "preserve",
+    "lib": ["dom", "es5", "es6"],
+    "esModuleInterop": true,
+    "extensions": [".js", ".jsx", ".ts", ".tsx"],
+    "moduleResolution": "node",
+    "typeRoots": ["src/types"]
+  },
+  "include": ["src"]
+}
