@@ -1,11 +1,8 @@
-import React from 'react'
+import React from 'react';
+import Join from './Join/Join';
 
 function User() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <Join />;
 }
 
-export default User
+export default User;
