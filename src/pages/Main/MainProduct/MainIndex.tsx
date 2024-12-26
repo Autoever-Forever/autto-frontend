@@ -1,8 +1,8 @@
 import React from 'react';
 import MainPage from './MainPage';
 
-function Index() {
+function MainIndex() {
   return <MainPage />;
 }
 
-export default Index;
+export default MainIndex;
