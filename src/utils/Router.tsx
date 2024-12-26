@@ -1,12 +1,20 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import MainIndex from '../pages/Main/Index';
+import Header from 'components/Header/Header';
+import Index from 'pages/User/Login/LoginIndex';
+import LoginIndex from 'pages/User/Login/LoginIndex';
+import JoinIndex from 'pages/User/Join/JoinIndex';
 
 function Router() {
   return (
-    <Routes>
-      <Route path="" element={<MainIndex />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/login" element={<LoginIndex />} />
+
+        <Route path="/signup" element={<JoinIndex />} />
+      </Routes>
+    </>
   );
 }
 

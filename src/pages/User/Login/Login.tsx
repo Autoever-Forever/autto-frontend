@@ -1,6 +1,7 @@
 import LoginForm from 'components/LoginForm/LoginForm';
-import loginImg from 'assets/login.png';
+import loginImg from 'assets/login.svg';
 import React from 'react';
+
 function Login() {
   return (
     <div
@@ -16,7 +17,7 @@ function Login() {
         style={{ width: '40%', height: '100%' }}
         alt="login"
       />
-      <LoginForm />
+      <LoginForm  />
     </div>
   );
 }

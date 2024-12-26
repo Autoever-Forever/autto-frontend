@@ -1,6 +1,6 @@
 import React from 'react';
 import { Logo, Wrapper, UserImg } from './HeaderStyle';
-import userImg from 'assets/user_logo.png';
+import userImg from 'assets/user_logo.svg';
 
 function Header() {
   return (
