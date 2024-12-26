@@ -35,11 +35,13 @@ export const Input = styled.input`
   font-size: 1.5rem;
   padding: 1rem;
   width: 70%;
+  margin: 1rem;
 `;
 export const Button = styled.button<ButtonProps>`
+  font-size: 1rem;
   background-color: #d9d9d9;
   border-radius: 10px;
-  padding: 1rem;
+    padding: 1rem;
   border: none;
   width: ${({ size }) => (size ? size : '100%')};
   margin-top: ${({ margin }) => (margin ? margin : 0)};
