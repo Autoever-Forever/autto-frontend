@@ -1,24 +1,14 @@
 import LoginForm from 'components/LoginForm/LoginForm';
 import loginImg from 'assets/login.svg';
 import React from 'react';
+import { LoginImg, Wrapper } from './LoginStyle';
 
 function Login() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-      }}
-    >
-      <img
-        src={loginImg}
-        style={{ width: '40%', height: '100%' }}
-        alt="login"
-      />
-      <LoginForm  />
-    </div>
+    <Wrapper>
+      <LoginImg src={loginImg} />
+      <LoginForm />
+    </Wrapper>
   );
 }
 export default Login;

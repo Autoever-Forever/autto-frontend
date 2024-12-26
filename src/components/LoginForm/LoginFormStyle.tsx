@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   border: solid 1px black;
   padding: 2rem;
   min-width: 25rem;
@@ -42,4 +42,5 @@ export const Button = styled.button`
   color: black;
   font-size: 2rem;
   padding: 1rem 2rem;
+  cursor: pointer;
 `;
