@@ -5,6 +5,8 @@ import LoginIndex from 'pages/User/Login/LoginIndex';
 import JoinIndex from 'pages/User/Join/JoinIndex';
 import MainPage from 'pages/Main/MainProduct/MainPage';
 import DetailIndex from 'pages/Main/DetailProduct/DetailIndex';
+import Reservation from 'components/Reservation/Reservation';
+import ReservationIndex from 'pages/Reservation/ReservationIndex';
 
 function Router() {
   return (
@@ -18,6 +20,8 @@ function Router() {
         <Route path="/main" element={<MainPage />} />
 
         <Route path="/product/:id" element={<DetailIndex />} />
+
+        <Route path="/reservation/:id" element={<ReservationIndex />} />
       </Routes>
     </>
   );
