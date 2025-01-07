@@ -1,16 +1,12 @@
 import styled from 'styled-components';
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+
 export const Title = styled.text`
-  font-size: 3rem;
-  margin-bottom: 3rem;
+  font-size: 2rem;
   font-weight: bold;
+  margin: 2rem;
 `;
 export const SubTitle = styled.text`
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin-bottom: 5rem;
+  color: var(--text-orange);
 `;

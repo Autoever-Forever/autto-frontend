@@ -6,9 +6,12 @@ interface Var {
 
   userName: string;
   setUserName: (value: string) => void;
+
+  userEmail: string;
+  setUserEmail: (value: string) => void;
 }
 
-const useToken = create<Var>((set) => ({
+const useInfo = create<Var>((set) => ({
   token: localStorage.getItem('token'),
   setToken: (token) => {
     localStorage.setItem('token', token);
@@ -18,6 +21,11 @@ const useToken = create<Var>((set) => ({
   setUserName: (userName) => {
     localStorage.setItem('userName', userName);
   },
+
+  userEmail: localStorage.getItem('userEmail'),
+  setUserEmail: (userEmail) => {
+    localStorage.setItem('userEmail', userEmail);
+  },
 }));
 
-export default useToken;
+export default useInfo;

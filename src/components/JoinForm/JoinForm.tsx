@@ -1,79 +1,145 @@
-import React, { useState } from 'react';
-import {
-  CategoryWrapper,
-  Input,
-  Label,
-  Wrapper,
-  Form,
-  Button,
-} from './JoinFormStyle';
+import React, { useEffect, useState } from 'react';
+import { CategoryWrapper, Input, Label, Form, Button } from './JoinFormStyle';
+import { ErrorText, Wrapper } from 'components/CommonStyle';
+import { PostEmail } from 'apis/user/PostEmail';
+import { PostEmailCheck } from 'apis/user/PostEmailCheck';
+import { useFormState } from 'react-dom';
+import { PostSignUp } from 'apis/user/PostSignUp';
+import { userInfo } from 'os';
+import useInfo from 'states/Variable';
 function JoinForm() {
-  const [userName, setUserName] = useState<string>();
+  const [name, setName] = useState<string>();
   const [emailId, setEmailId] = useState<string>();
   const [emailCode, setEmailCode] = useState<string>();
-  const [emailAvailable, setEmailAvailable] = useState<string>();
+  const [emailAvailable, setEmailAvailable] = useState<boolean>();
   const [userPassword, setUserPassword] = useState<string>();
   const [userPasswordCheck, setUserPasswordCheck] = useState<string>();
 
+  const { setUserName, setUserEmail } = useInfo((state) => state);
+  const formData = new FormData();
+
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+  // form 제출
   const submitHandler = () => {
     console.log('submit join');
   };
 
-  const sendCode = () => {
+  // 이메일 코드 전송
+  const sendCode = async () => {
     if (!emailRegExp.test(emailId)) {
       console.log('이메일 형식 불일치');
+      alert('이메일 형식이 일치하지 않습니다. 다시 작성해주세요.');
     } else {
-      console.log('이메일 코드 전송');
+      try {
+        const res = await PostEmail(emailId);
+        if (res.result) {
+          alert(
+            '이메일 코드를 전송했습니다. 이메일 확인 후 코드를 입력해주세요.',
+          );
+        } else {
+          alert(
+            '이메일 전송에 실패하였습니다. 이메일 확인 후 다시 요청해주세요.',
+          );
+        }
+        return;
+      } catch (err) {
+        console.log(err);
+        return;
+      }
     }
   };
+  // 이메일 코드값 확인
   const checkCode = async () => {
-    // 중복확인 api
-    console.log('이메일 코드 확인');
-    // 응답값 확인 - emailAvailable
+    try {
+      const res = await PostEmailCheck(emailCode);
+      if (res.result) {
+        alert('코드 인증이 완료되었습니다.');
+        setEmailAvailable(true);
+      } else {
+        alert('유효한 코드가 아닙니다. 코드를 다시 확인한 후 입력해주세요.');
+      }
+      return;
+    } catch (err) {
+      console.log(err);
+      return;
+    }
   };
 
-  const submitUser = () => {
-    if (userName && emailAvailable && userPassword && userPasswordCheck) {
-      if (userPassword !== userPasswordCheck) {
-       return console.log('비밀번호가 일치하지 않습니다.');
-      }
-    } else {
-      console.log('회원가입 정부 불충족');
+  const submitUser = async () => {
+    if (userPassword !== userPasswordCheck) {
+      return alert('비밀번호가 일치하지 않습니다.');
     }
-    return console.log('회원가입 정보 전송');
+    if (userPassword == null) {
+      return alert('비밀번호를 입력해주세요.');
+    }
+    if (!emailAvailable) {
+      return alert('이메일 코드 인증을 진행해주세요.');
+    }
+    if (!name) {
+      return alert('사용자 이름을 입력해주세요.');
+    }
+    // 회원가입 정보 전송하기
+    formData.append('name', name);
+    formData.append('email', emailId);
+    formData.append('verficationCode', emailCode);
+    formData.append('userPw', userPassword);
+    formData.append('confirmPassword', userPassword);
+
+    try {
+      const res = await PostSignUp(formData);
+
+      if (res.result) {
+        setUserName(res.data.name);
+        setUserEmail(res.data.email);
+        return alert('회원가입이 성공적으로 완료되었습니다.');
+      } else {
+        return alert('회원가입에 실패하였습니다. 다시 진행해주세요.');
+      }
+    } catch (err) {
+      return alert('회원가입에 실패하였습니다.' + err);
+    }
   };
+
   return (
     <Wrapper>
       <Form onSubmit={submitHandler}>
         <CategoryWrapper>
           <Label>이름</Label>
-          <Input
-            placeholder="이름"
-            onChange={(e) => setUserName(e.target.value)}
-          />
+          <Input placeholder="이름" onChange={(e) => setName(e.target.value)} />
         </CategoryWrapper>
         <CategoryWrapper>
           <Label>이메일</Label>
           <Input
             placeholder="test@test.com"
             style={{ width: '50%' }}
-            onChange={(e) => setEmailId(e.target.value)}
+            onChange={(e) => {
+              setEmailId(e.target.value);
+            }}
           />
-          <Button size="20%" onClick={() => sendCode()}>
+          <Button
+            type="button"
+            size="20%"
+            available={emailRegExp.test(emailId)}
+            onClick={sendCode}
+          >
             인증하기
           </Button>
         </CategoryWrapper>
 
         <CategoryWrapper>
-          <Label style={{ visibility: 'hidden' }}>인증코드</Label>
+          <Label>인증코드</Label>
           <Input
             placeholder="코드 입력"
             style={{ width: '50%' }}
             onChange={(e) => setEmailCode(e.target.value)}
           />
-          <Button size="20%" onClick={() => checkCode()}>
+          <Button
+            type="button"
+            size="20%"
+            available={emailCode && emailCode.length > 0}
+            onClick={() => checkCode()}
+          >
             인증
           </Button>
         </CategoryWrapper>
@@ -88,16 +154,33 @@ function JoinForm() {
         </CategoryWrapper>
         <CategoryWrapper>
           <Label>비밀번호 확인</Label>
-          <Input
-            type="password"
-            placeholder="비밀번호 확인"
-            onChange={(e) => setUserPasswordCheck(e.target.value)}
-          />
+          <div style={{ width: '70%', justifyContent: 'flex-start' }}>
+            <Input
+              type="password"
+              placeholder="비밀번호 확인"
+              width="100%"
+              onChange={(e) => setUserPasswordCheck(e.target.value)}
+            />
+            {userPassword && userPassword != userPasswordCheck ? (
+              <ErrorText margin="10px">비밀번호가 일치하지 않습니다.</ErrorText>
+            ) : null}
+          </div>
         </CategoryWrapper>
-        {userPassword && userPassword != userPasswordCheck ? (
-          <p>비밀번호가 일치하지 않습니다.</p>
-        ) : null}
-        <Button type="submit" margin="5rem" onClick={() => submitUser()}>
+
+        <Button
+          type="button"
+          margin="5rem"
+          fontSize="1.5rem"
+          padding="1rem"
+          available={
+            name &&
+            emailId &&
+            emailCode &&
+            userPassword &&
+            userPassword == userPasswordCheck
+          }
+          onClick={() => submitUser()}
+        >
           회원가입
         </Button>
       </Form>
