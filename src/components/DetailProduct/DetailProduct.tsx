@@ -9,7 +9,7 @@ import {
   Text,
   Button,
 } from './DetailProductStyle';
-import tempImg from 'assets/login.svg';
+import tempImg from 'assets/Logo.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 
 interface DetailProductProps {

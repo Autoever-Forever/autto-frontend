@@ -1,6 +1,6 @@
 import React from 'react';
 import { Poster, Wrapper, Text } from './MainProductStyle';
-import poster from 'assets/login.svg';
+import poster from 'assets/Logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface MainProductProps {
