@@ -5,9 +5,17 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+export const SubTitle = styled.div`
+  font-size: 1rem;
+  color: var(--main-blue);
+  line-height: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+`;
 
 export const Form = styled.div`
   border: solid 1px black;
+  margin: 1rem;
   padding: 2rem;
   min-width: 25rem;
 
@@ -17,7 +25,8 @@ export const Form = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: bold;
   padding: 2rem 0 1rem 0;
   text-align: left;
 `;
@@ -25,7 +34,11 @@ export const Label = styled.label`
 export const Input = styled.input`
   border: solid 1px black;
   border-radius: 2px;
+  border: none;
+  border-bottom: solid 2px var(--text-grey);
   padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -38,9 +51,9 @@ export const ButtonWrapper = styled.div`
 export const Button = styled.button`
   border-radius: 5px;
   border: none;
-  background-color: #d9d9d9;
-  color: black;
-  font-size: 2rem;
-  padding: 1rem 2rem;
+  background-color: var(--main-blue);
+  color: var(--text-white);
+  font-size: 1rem;
+  padding: 1rem 3rem;
   cursor: pointer;
 `;

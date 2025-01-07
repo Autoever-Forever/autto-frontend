@@ -5,17 +5,21 @@ import {
   Form,
   Input,
   Label,
+  SubTitle,
   Wrapper,
 } from './LoginFormStyle';
-import { Logo } from 'components/Header/HeaderStyle';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorText } from 'pages/User/Login/LoginStyle';
+import logo from 'assets/LogoText.svg';
+import { GetLogin } from 'apis/user/GetLogin';
+import useToken from 'states/Variable';
 
 function LoginForm() {
   const [id, setId] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [available, setAvailable] = useState<boolean>();
   const navigate = useNavigate();
+  const { setToken } = useToken();
 
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -35,18 +39,27 @@ function LoginForm() {
   };
 
   // 폼 제출
-  const formHander = () => {
-    // 응답값에 따라 상품 페이지로 이동
-    console.log('submit form');
-
-    navigate('/main');
-    // 제출한 폼 api 연결
+  const formHander = async () => {
+    try {
+      const res = await GetLogin(id, password);
+      setToken(res.accessToken);
+      console.log('submit form');
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+      console.log('submit form');
+    }
   };
   // 회원가입 페이지로 전환
 
   return (
     <Wrapper>
-      <Logo>AutoeverForever</Logo>
+      <img src={logo}></img>
+      <SubTitle>
+        만나서 반가워요! 멋진 공연이 기다리고 있어요.
+        <br />
+        로그인 후 다양한 공연을 관람해보세요!
+      </SubTitle>
       <Form onSubmit={formHander}>
         <Label>아이디</Label>
         <Input placeholder="아이디" onChange={(e) => setId(e.target.value)} />

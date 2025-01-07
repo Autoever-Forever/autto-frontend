@@ -7,15 +7,23 @@ export const Wrapper = styled.div`
   position: sticky;
   width: 100%;
   background-color: white;
+  box-shadow: 0 0 5px 0 black;
 `;
-export const Logo = styled.div`
-  font-size: 3rem;
-  padding: 2rem;
-  color: black;
+export const Logo = styled.img`
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  margin: 1rem;
+`;
+export const User = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
 `;
 
 export const UserImg = styled.img`
-  width: 3rem;
-  height: 3rem;
-  padding: 2rem;
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem;
 `;
