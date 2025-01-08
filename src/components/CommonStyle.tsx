@@ -9,6 +9,10 @@ interface WrapperProps {
   width?: string;
   padding?: string;
 }
+
+interface ButtonProps {
+  position?: string;
+}
 export const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-wrap: wrap;
@@ -19,8 +23,6 @@ export const Wrapper = styled.div<WrapperProps>`
     flex_direction ? 'flex-start' : 'center'};
   max-width: ${({ width }) => (width ? width : '100%')};
   padding: ${({ padding }) => (padding ? padding : null)};
-  /* overflow: ${(width) => (width ? 'visible' : 'hidden')};
-  overflow-x: hidden; */
 `;
 
 export const RowWrapper = styled.div`
@@ -38,4 +40,16 @@ export const Title = styled.text`
   font-size: 2rem;
   font-weight: bold;
   margin: 2rem;
+`;
+
+export const Button = styled.button<ButtonProps>`
+  border-radius: 5px;
+  border: none;
+  background-color: var(--main-blue);
+  color: var(--text-white);
+  font-size: 1rem;
+  padding: 1rem 3rem;
+  cursor: pointer;
+  position: ${({ position }) => (position ? position : null)};
+  bottom: ${({ position }) => (position ? 0 : null)};
 `;

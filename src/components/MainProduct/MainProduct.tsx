@@ -4,6 +4,7 @@ import poster from 'assets/poster.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { RowWrapper, Wrapper } from 'components/CommonStyle';
 import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query';
+import useProducts from 'states/useProducts';
 
 interface MainProductProps {
   uuid: string;
@@ -13,21 +14,13 @@ interface MainProductProps {
 }
 function MainProduct({ uuid, index, title, posterUrl }: MainProductProps) {
   const navigator = useNavigate();
+  const { setUuid } = useProducts();
 
   const queryClient = new QueryClient();
 
-  function useSetUUID() {
-    const UUID = useQuery({
-      queryKey: ['UUID'],
-      queryFn: () => {
-        return uuid;
-      },
-    });
-  }
-
   const onClick = () => {
     // react-query 에 uuid 값 가져가기
-    useSetUUID;
+    setUuid(uuid);
     console.log(uuid);
     navigator(`/product/${index}`);
   };
