@@ -2,15 +2,12 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Router from 'utils/Router';
-import { GlobalStyle } from 'utils/GlobalStyle';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
 

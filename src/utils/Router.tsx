@@ -18,7 +18,7 @@ function Router() {
 
         <Route path="/signup" element={<JoinIndex />} />
 
-        <Route path="/main" element={<MainPage />} />
+        <Route path="/" element={<MainPage />} />
 
         <Route path="/product/:id" element={<DetailIndex />} />
 
