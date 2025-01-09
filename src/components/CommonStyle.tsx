@@ -12,6 +12,11 @@ interface WrapperProps {
 
 interface ButtonProps {
   position?: string;
+  width?: string;
+}
+interface TitleProps {
+  width?: string;
+  text_align?: string;
 }
 export const Wrapper = styled.div<WrapperProps>`
   display: flex;
@@ -36,13 +41,17 @@ export const ErrorText = styled.div<ErrorTextProps>`
   color: var(--text-red);
   margin-left: ${({ margin }) => (margin ? margin : null)};
 `;
-export const Title = styled.text`
+export const Title = styled.text<TitleProps>`
   font-size: 2rem;
   font-weight: bold;
+  width: 100%;
   margin: 2rem;
+  width: ${({ width }) => (width ? width : '100%')};
+  text-align: ${({ text_align }) => (text_align ? text_align : 'center')};
 `;
 
 export const Button = styled.button<ButtonProps>`
+  width: ${({ width }) => (width ? width : null)};
   border-radius: 5px;
   border: none;
   background-color: var(--main-blue);

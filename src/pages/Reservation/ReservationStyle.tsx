@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-`;
 export const Title = styled.div`
   font-size: 3rem;
   font-weight: bold;
@@ -15,19 +8,19 @@ export const Title = styled.div`
   margin-bottom: 0.5rem;
 `;
 export const SubInfo = styled.div`
-  font-size: 2rem;
+  font-size: 1rem;
   text-align: left;
-  width: 70%;
-  margin-bottom: 5rem;
+  width: 80%;
+  margin-bottom: 3%;
 `;
 export const ReservationBox = styled.div`
   display: flex;
   flex-direction: row;
-  width: 70%;
-  padding: 2rem;
+  justify-content: center;
+  width: 60%;
 `;
 export const ButtonBox = styled.div`
-  width: 70%;
+  width: 60%;
   display: flex;
   justify-content: flex-end;
   padding: 2rem 0;

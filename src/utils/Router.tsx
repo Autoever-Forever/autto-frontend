@@ -6,7 +6,6 @@ import JoinIndex from 'pages/User/Join/JoinIndex';
 import MainPage from 'pages/Main/MainProduct/MainPage';
 import DetailIndex from 'pages/Main/DetailProduct/DetailIndex';
 import ReservationIndex from 'pages/Reservation/ReservationIndex';
-import Mypage from 'pages/Mypage/Mypage';
 import MypageIndex from 'pages/Mypage/MyPageIndex';
 
 function Router() {
