@@ -4,7 +4,6 @@ import {
   InfoWrapper,
   Poster,
   Title,
-  Wrapper,
   LabelWrapper,
   Text,
   Button,
@@ -19,6 +18,10 @@ function DetailProduct({ productId }: DetailProductProps) {
   const { id } = useParams();
   const navigator = useNavigate();
   const [productInfo, setProductInfo] = useState([]);
+
+  useEffect(() => {
+    // 상품 상세 정보 가져오기
+  }, []);
 
   const data = [
     { label: '공연 제목', value: '뮤지컬 <시라노>' },

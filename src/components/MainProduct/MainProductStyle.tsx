@@ -1,19 +1,14 @@
 import styled from 'styled-components';
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  border-bottom: solid 1px black;
-  padding: 2rem;
-  justify-content: space-between;
-  align-items: center;
-  width: 70%;
-`;
+
 export const Poster = styled.img`
-  width: 5rem;
+  width: 70%;
+  height: 100%;
 `;
 export const Text = styled.div`
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: black;
+  padding: 2% 0;
+  text-overflow: truncate;
 `;
 export const Title = styled.div`
   font-size: 3rem;

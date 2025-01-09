@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   position: sticky;
+  top: 0;
   width: 100%;
   background-color: white;
   box-shadow: 0 0 5px 0 black;
