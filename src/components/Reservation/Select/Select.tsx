@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   CntInfo,
@@ -11,10 +11,31 @@ import {
   Value,
   Wrapper,
 } from './SelectStyle';
-import moment from 'moment';
+import { QueryClient, useQuery } from '@tanstack/react-query';
+import useProducts from 'states/useProducts';
+import { GetInventroyProduct } from 'apis/product/GetInventroyProduct';
 
-function Select() {
-  const [totalSelect, setTotalSelect] = useState(0);
+interface selectProps {
+  totalSelect?: number;
+  setTotalSelect?: (value: number) => void;
+  seatId: string;
+  setSeatId?: (value: string) => void;
+}
+function Select({
+  totalSelect,
+  setTotalSelect,
+  seatId,
+  setSeatId,
+}: selectProps) {
+  const { uuid } = useProducts();
+  const { data } = useQuery({
+    queryKey: ['dates'],
+    queryFn: () => GetInventroyProduct(uuid),
+  });
+  const [invetory, setInventory] = useState();
+
+  const { selectDate } = useProducts();
+
   const options = [
     { value: 1, label: '1매' },
     { value: 2, label: '2매' },
@@ -25,36 +46,52 @@ function Select() {
     { value: 7, label: '7매' },
     { value: 8, label: '8매' },
     { value: 9, label: '9매' },
+    { value: 10, label: '10매' },
   ];
+  useEffect(() => {
+    const foundDate = data.find((date) => date.date.includes(selectDate));
+    setSeatId(foundDate.id);
+
+    setInventory(foundDate || null);
+  }, [selectDate]);
 
   return (
-    <Box>
-      <Title>관람 인원 선택</Title>
-      <CntInfo>오후 6시 00분 공연</CntInfo>
-      <CntInfo>잔여 좌석 : 6석</CntInfo>
-      <Wrapper>
-        <CustomSelect
-          placeholder='0매'
-          options={options}
-          onChange={(e) => {
-            setTotalSelect(e.value);
-          }}
-        />
-        {totalSelect && totalSelect > 6 ? (
-          <ErrorText>예매티켓 수가 부족합니다.</ErrorText>
-        ) : null}
-      </Wrapper>
-      <TotalInfo>
-        <InfoWrapper>
-          <Label>선택된 좌석 수</Label>
-          <Value>{totalSelect}석</Value>
-        </InfoWrapper>
-        <InfoWrapper>
-          <Label>결제 금액</Label>
-          <Value>150,000원</Value>
-        </InfoWrapper>
-      </TotalInfo>
-    </Box>
+    <>
+      {invetory ? (
+        <Box>
+          <Title> 관람 인원 선택</Title>
+          <CntInfo>
+            {invetory.date?.slice(11, 13)}시 {invetory.date.slice(14, 16)}분
+            공연
+          </CntInfo>
+          <CntInfo>잔여 좌석 : {invetory?.inventroy}석</CntInfo>
+          <Wrapper>
+            <CustomSelect
+              placeholder="0매"
+              options={options}
+              onChange={(e) => {
+                setTotalSelect(e.value);
+              }}
+            />
+            {totalSelect && totalSelect > 6 ? (
+              <ErrorText>예매티켓 수가 부족합니다.</ErrorText>
+            ) : null}
+          </Wrapper>
+          <TotalInfo>
+            <InfoWrapper>
+              <Label>선택된 좌석 수</Label>
+              <Value>{totalSelect}석</Value>
+            </InfoWrapper>
+            <InfoWrapper>
+              <Label>결제 금액</Label>
+              <Value>{totalSelect * invetory?.price}원</Value>
+            </InfoWrapper>
+          </TotalInfo>
+        </Box>
+      ) : (
+        <p style={{ minWidth: '50%' }}>공연 정보가 없습니다.</p>
+      )}
+    </>
   );
 }
 
