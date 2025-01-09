@@ -22,7 +22,7 @@ function Router() {
 
         <Route path="/product/:id" element={<DetailIndex />} />
 
-        <Route path="/reservation/:id" element={<ReservationIndex />} />
+        <Route path="/inventory/:id" element={<ReservationIndex />} />
 
         <Route path="/mypage" element={<MypageIndex />} />
       </Routes>

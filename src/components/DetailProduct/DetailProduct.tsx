@@ -6,10 +6,13 @@ import {
   Title,
   LabelWrapper,
   Text,
-  Button,
 } from './DetailProductStyle';
-import tempImg from 'assets/Logo.svg';
-import { useNavigate, useParams } from 'react-router-dom';
+import poster from 'assets/poster.png';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { Button, Wrapper } from 'components/CommonStyle';
+import useProducts from 'states/useProducts';
+import { GetDetailProduct } from 'apis/product/GetDetailProduct';
+import useInfo from 'states/Variable';
 
 interface DetailProductProps {
   productId?: string;
@@ -18,47 +21,91 @@ function DetailProduct({ productId }: DetailProductProps) {
   const { id } = useParams();
   const navigator = useNavigate();
   const [productInfo, setProductInfo] = useState([]);
+  const { uuid } = useProducts();
+  const { token } = useInfo();
+  const [detail, setDetail] = useState({
+    title: null,
+    location: null,
+    performStartDate: null,
+    performEndDate: null,
+    runningTime: null,
+    price: null,
+  });
 
   useEffect(() => {
+    const getDetail = async () => {
+      try {
+        const res = await GetDetailProduct(uuid);
+        if (res.length == 0) {
+          alert('공연 정보를 불러오지 못했습니다. 다시 시도해주세요.');
+        } else {
+          setDetail(res);
+        }
+      } catch (err) {
+        alert('공연 정보를 불러오지 못했습니다. 다시 시도해주세요.');
+      }
+    };
     // 상품 상세 정보 가져오기
+    getDetail();
   }, []);
 
-  const data = [
-    { label: '공연 제목', value: '뮤지컬 <시라노>' },
-    { label: '장소', value: '예술의 전당 CJ 토월극장' },
-    { label: '공연기간', value: '2024.12.06 ~ 2025.02.03' },
-    { label: '공연시간', value: '160분(인터미션 20분 포함)' },
-    { label: '관람연령', value: '초등학생 이상 관람가' },
-    { label: '가격', value: '150,000원' },
-  ];
-  // 상품 상세 정보 가져오기
-  useEffect(() => {
-    //productId 값 넣어서 상품 상세 정보 가져오기
-    setProductInfo(data);
-  }, []);
+  //예매하기 버튼 누를 때
+  const onClick = () => {
+    // 로그인 되어 있을 때
+    if (token) {
+      navigator(`/inverntory/${id}`);
+    }
+    // 로그인 안되어 있을
+    else {
+      alert('로그인 후 이용해주세요.');
+      navigator('/login');
+    }
+  };
 
   return (
     <Wrapper>
-      <Title>{data[0].value}</Title>
-      <InfoWrapper>
-        <Poster src={tempImg} />
-        <InfoBox>
-          {productInfo.map((data, ind) => {
-            if (ind == 0) {
-              return null;
-            }
-            return (
-              <LabelWrapper key={ind}>
-                <Text width="30%">{data.label}</Text>
-                <Text width="60%">{data.value}</Text>
+      {detail ? (
+        <>
+          <Title>{detail.title}</Title>
+          <InfoWrapper>
+            <Poster src={poster} />
+            <InfoBox>
+              <LabelWrapper>
+                <Text width="30%">장소</Text>
+                <Text width="60%">{detail.location}</Text>
               </LabelWrapper>
-            );
-          })}
-          <Button onClick={() => navigator(`/reservation/${id}`)}>
-            예매하기
-          </Button>
-        </InfoBox>
-      </InfoWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">공연 기간</Text>
+                <Text width="60%">
+                  {detail.performStartDate} ~ {detail.performEndDate}
+                </Text>
+              </LabelWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">공연 시간</Text>
+                <Text width="60%">시작 시간 ({detail.runningTime})</Text>
+              </LabelWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">가격</Text>
+                <Text width="60%">{detail.price}</Text>
+              </LabelWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">최대 매수</Text>
+                <Text width="60%">{detail.location}</Text>
+              </LabelWrapper>
+
+              <Button onClick={() => onClick()} position="relative">
+                예매하기
+              </Button>
+            </InfoBox>
+          </InfoWrapper>
+        </>
+      ) : (
+        <div>404error</div>
+      )}
     </Wrapper>
   );
 }
