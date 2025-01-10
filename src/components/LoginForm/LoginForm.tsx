@@ -42,12 +42,11 @@ function LoginForm() {
   const formHander = async () => {
     try {
       const res = await GetLogin(id, password);
+      console.log(res);
       setToken(res.accessToken);
-      console.log('submit form');
       navigate('/');
     } catch (err) {
-      console.log(err);
-      console.log('submit form');
+      return err;
     }
   };
   // 회원가입 페이지로 전환
