@@ -29,7 +29,11 @@ function MypageList({
   state,
   thumnailUrl,
 }: MypageListProps) {
-  useEffect(() => {});
+  
+  const onClick = () => {
+    
+  }
+  
   return (
     <Wrapper style={{ width: '80%' }}>
       <ReservationNumberBox index={index}>
