@@ -13,6 +13,7 @@ interface WrapperProps {
 interface ButtonProps {
   position?: string;
   width?: string;
+  status?: boolean;
 }
 interface TitleProps {
   width?: string;
@@ -54,8 +55,11 @@ export const Button = styled.button<ButtonProps>`
   width: ${({ width }) => (width ? width : null)};
   border-radius: 5px;
   border: none;
-  background-color: var(--main-blue);
-  color: var(--text-white);
+  background-color: ${({ status }) =>
+    status ? 'var(--main-blue)' : 'var(--bg-grey)'};
+  color: ${({ status }) =>
+    status ? 'var(--text-white)' : 'var(--text-black)'};
+  font-weight: 500;
   font-size: 1rem;
   padding: 1rem 3rem;
   cursor: pointer;

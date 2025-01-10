@@ -3,6 +3,9 @@ import styled from 'styled-components';
 interface Textprops {
   width: string;
 }
+interface LabelWrapperProps {
+  color?: string;
+}
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,12 +36,13 @@ export const InfoBox = styled.div`
   width: 60%;
   height: 100%;
 `;
-export const LabelWrapper = styled.div`
+export const LabelWrapper = styled.div<LabelWrapperProps>`
   display: flex;
   flex-direction: row;
   width: 80%;
   font-size: 100%;
   margin-bottom: 5%;
+  color: ${({ color }) => (color ? color : null)};
 `;
 export const Text = styled.div<Textprops>`
   width: ${({ width }) => width};

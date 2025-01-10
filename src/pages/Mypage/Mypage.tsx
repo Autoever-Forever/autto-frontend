@@ -57,6 +57,8 @@ function Mypage() {
     // 예약 취소하는 api 연결
     console.log('cancel ticket');
   };
+
+
   return (
     <Wrapper>
       <Title>예약 확인</Title>
