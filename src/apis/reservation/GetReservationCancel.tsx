@@ -1,4 +1,4 @@
-import { axiosPrivate } from 'apis/api';
+import { axiosPrivate } from "apis/productApi";
 
 export const GetReservationCancel = async (reservationId: string) => {
   console.log('api token: ', reservationId);

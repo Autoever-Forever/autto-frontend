@@ -12,19 +12,22 @@ interface Var {
 }
 
 const useInfo = create<Var>((set) => ({
-  token: localStorage.getItem('token'),
+  token: sessionStorage.getItem('token'),
   setToken: (token) => {
-    localStorage.setItem('token', token);
+    set({ token: token });
+    sessionStorage.setItem('token', token);
   },
 
-  userName: localStorage.getItem('userName'),
+  userName: sessionStorage.getItem('userName'),
   setUserName: (userName) => {
-    localStorage.setItem('userName', userName);
+    set({ userName: userName });
+    sessionStorage.setItem('userName', userName);
   },
 
-  userEmail: localStorage.getItem('userEmail'),
+  userEmail: sessionStorage.getItem('userEmail'),
   setUserEmail: (userEmail) => {
-    localStorage.setItem('userEmail', userEmail);
+    set({ userEmail: userEmail });
+    sessionStorage.setItem('userEmail', userEmail);
   },
 }));
 

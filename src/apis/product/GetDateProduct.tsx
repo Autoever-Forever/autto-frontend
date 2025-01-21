@@ -1,4 +1,4 @@
-import { axiosPrivate } from 'apis/api';
+import { axiosPrivate } from 'apis/userApi';
 
 export const GetDateProduct = async (uuid: string) => {
   try {

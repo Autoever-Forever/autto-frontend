@@ -1,8 +1,10 @@
-import { instance } from 'apis/api';
+import { instance } from 'apis/userApi';
 
-export const PostEmailCheck = async (code: string) => {
+export const PostEmailCheck = async (email: string, code: string) => {
   try {
-    const res = await instance.post('9000/auth/verify-code');
+    const res = await instance.post(
+      `auth/verify-code?email=${email}&verificationCode=${code}`,
+    );
     return res.data;
   } catch (err) {
     console.log(err);

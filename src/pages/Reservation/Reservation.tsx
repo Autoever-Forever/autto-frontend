@@ -7,10 +7,12 @@ import { QueryClient, useQuery } from '@tanstack/react-query';
 import useProducts from 'states/useProducts';
 import { GetInventroyProduct } from 'apis/product/GetInventroyProduct';
 import { PostReservation } from 'apis/reservation/PostReservation';
+import { useNavigate } from 'react-router-dom';
 
 function Reservation() {
+  const navigator = useNavigate();
   const queryClient = new QueryClient();
-  const { uuid } = useProducts();
+  const { uuid, setSuccess, setTitle, setSeatCnt } = useProducts();
   const reservationInfo = new FormData();
   const [totalSelect, setTotalSelect] = useState(0);
   const [seatId, setSeatId] = useState('');
@@ -20,7 +22,9 @@ function Reservation() {
     queryFn: () => GetInventroyProduct(uuid),
   });
 
-  useEffect(() => {});
+  useEffect(() => {
+    GetInventroyProduct(uuid);
+  }, []);
 
   const submitHandler = () => {
     // 예약 정보 전송하는 api 연결
@@ -29,9 +33,10 @@ function Reservation() {
         const res = await PostReservation(reservationInfo);
 
         if (res) {
-          return alert('예약에 성공하였습니다.');
-        } else {
-          return alert('에약에 실패하였습니다.');
+          setTitle(data.date[0].title);
+          setSeatCnt(totalSelect);
+          setSuccess('reservation');
+          navigator('/success');
         }
       } catch (err) {
         alert('에약에 실패하였습니다.');
@@ -58,25 +63,33 @@ function Reservation() {
 
   return (
     <Wrapper>
-      <Title text_align="start" width="80%">
-        뮤지컬 [시라노]
-      </Title>
-      <SubInfo>예술의 전당 CJ 토월 극장 | 2024.12.03 ~ 2025.02.23</SubInfo>
-      <ReservationBox>
-        <Calendar />
-        <Select
-          totalSelect={totalSelect}
-          totalSelect={setTotalSelect}
-          seatId={seatId}
-          setSeatId={setSeatId}
-        />
-      </ReservationBox>
+      {data ? (
+        <>
+          <Title text_align="start" width="80%">
+            {data.data[0].title}
+          </Title>
+          <SubInfo>
+            {data.data[0].location} |{' '}
+            {data.data[0].performStartDate.slice(0, 10)} ~
+            {data.data[0].performEndDate.slice(0, 10)}
+          </SubInfo>
+          <ReservationBox>
+            <Calendar />
+            <Select
+              totalSelect={totalSelect}
+              setTotalSelect={setTotalSelect}
+              seatId={seatId}
+              setSeatId={setSeatId}
+            />
+          </ReservationBox>
 
-      <ButtonBox>
-        <Button onClick={submitHandler} width="30%">
-          예약하기
-        </Button>
-      </ButtonBox>
+          <ButtonBox>
+            <Button onClick={submitHandler} width="30%" status>
+              예약하기
+            </Button>
+          </ButtonBox>
+        </>
+      ) : null}
     </Wrapper>
   );
 }

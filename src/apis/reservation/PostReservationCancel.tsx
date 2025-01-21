@@ -1,4 +1,4 @@
-import { axiosPrivate } from 'apis/api';
+import { axiosPrivate } from 'apis/reservationApi';
 
 export const PostReservationCancel = async (reservationId: string) => {
   try {

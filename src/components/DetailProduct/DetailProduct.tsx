@@ -3,13 +3,12 @@ import {
   InfoBox,
   InfoWrapper,
   Poster,
-  Title,
   LabelWrapper,
   Text,
 } from './DetailProductStyle';
 import poster from 'assets/poster.png';
 import { redirect, useNavigate, useParams } from 'react-router-dom';
-import { Button, Wrapper } from 'components/CommonStyle';
+import { Button, Wrapper, Title } from 'components/CommonStyle';
 import useProducts from 'states/useProducts';
 import { GetDetailProduct } from 'apis/product/GetDetailProduct';
 import useInfo from 'states/Variable';
@@ -20,40 +19,30 @@ interface DetailProductProps {
 function DetailProduct({ productId }: DetailProductProps) {
   const { id } = useParams();
   const navigator = useNavigate();
-  const [productInfo, setProductInfo] = useState([]);
   const { uuid } = useProducts();
   const { token } = useInfo();
-  const [detail, setDetail] = useState({
-    title: null,
-    location: null,
-    performStartDate: null,
-    performEndDate: null,
-    runningTime: null,
-    price: null,
-  });
+
+  const [data, setData] = useState();
 
   useEffect(() => {
-    const getDetail = async () => {
+    const GetDetail = async () => {
       try {
         const res = await GetDetailProduct(uuid);
-        if (res.length == 0) {
-          alert('공연 정보를 불러오지 못했습니다. 다시 시도해주세요.');
-        } else {
-          setDetail(res);
-        }
+        setData(res.data);
       } catch (err) {
-        alert('공연 정보를 불러오지 못했습니다. 다시 시도해주세요.');
+        return err;
       }
     };
-    // 상품 상세 정보 가져오기
-    getDetail();
+    GetDetail();
+
+    // setData(res.data);
   }, []);
 
   //예매하기 버튼 누를 때
   const onClick = () => {
     // 로그인 되어 있을 때
     if (token) {
-      navigator(`/inverntory/${id}`);
+      navigator(`/inventory/${id}`);
     }
     // 로그인 안되어 있을
     else {
@@ -64,40 +53,50 @@ function DetailProduct({ productId }: DetailProductProps) {
 
   return (
     <Wrapper>
-      {detail ? (
+      {data && data.price ? (
         <>
-          <Title>{detail.title}</Title>
+          <Title text_align="start" width="80%">
+            {data.title}
+          </Title>
           <InfoWrapper>
             <Poster src={poster} />
             <InfoBox>
               <LabelWrapper>
                 <Text width="30%">장소</Text>
-                <Text width="60%">{detail.location}</Text>
+                <Text width="60%">{data.location}</Text>
               </LabelWrapper>
 
               <LabelWrapper>
                 <Text width="30%">공연 기간</Text>
                 <Text width="60%">
-                  {detail.performStartDate} ~ {detail.performEndDate}
+                  {data.performStartDate.slice(0, 10)} ~{' '}
+                  {data.performEndDate.slice(0, 10)}
                 </Text>
               </LabelWrapper>
 
               <LabelWrapper>
                 <Text width="30%">공연 시간</Text>
-                <Text width="60%">시작 시간 ({detail.runningTime})</Text>
+                <Text width="60%">시작 시간 ({data.runningTime})</Text>
               </LabelWrapper>
 
               <LabelWrapper>
                 <Text width="30%">가격</Text>
-                <Text width="60%">{detail.price}</Text>
+                <Text width="60%">
+                  {data?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                  원
+                </Text>
               </LabelWrapper>
 
               <LabelWrapper>
                 <Text width="30%">최대 매수</Text>
-                <Text width="60%">{detail.location}</Text>
+                <Text width="60%">{data.ticketLimit} 매</Text>
               </LabelWrapper>
 
-              <Button onClick={() => onClick()} position="relative">
+              <Button
+                onClick={() => onClick()}
+                position="relative"
+                status={true}
+              >
                 예매하기
               </Button>
             </InfoBox>

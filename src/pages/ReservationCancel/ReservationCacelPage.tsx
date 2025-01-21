@@ -3,31 +3,44 @@ import {
   InfoBox,
   InfoWrapper,
   Poster,
-  Title,
   LabelWrapper,
   Text,
 } from '../../components/DetailProduct/DetailProductStyle';
 import poster from 'assets/poster.png';
-import { Button, Wrapper } from 'components/CommonStyle';
+import { Title, Button, Wrapper } from 'components/CommonStyle';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GetReservationCancel } from 'apis/reservation/GetReservationCancel';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import { PostReservationCancel } from 'apis/reservation/PostReservationCancel';
+import useProducts from 'states/useProducts';
 
 function ReservationCacelPage() {
   const { reservationId } = useParams();
   const navigator = useNavigate();
-  const { data } = useQuery({
-    queryKey: ['cancel'],
-    queryFn: () => GetReservationCancel(reservationId),
-  });
+  const [data, setData] = useState();
+  const { setSuccess, setSeatCnt } = useProducts();
 
-  const onClick = () => {
-    const res = PostReservationCancel(reservationId);
-    if (res) {
+  useEffect(() => {
+    const GetCancel = async () => {
+      try {
+        const res = await GetReservationCancel(reservationId);
+        setData(res.data);
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
+    };
+    GetCancel();
+  }, []);
+
+  const onClick = async () => {
+    const res = await PostReservationCancel(reservationId);
+    if (res.data) {
       // 예매 취소 완료인 상태
-      navigator('/');
+      setSuccess('reservationCancel');
+      setSeatCnt(data.seatCount);
+      navigator('/success');
     } else {
       alert('예매를 취소하지 못했습니다. 다시 시도해주세요.');
     }
@@ -37,7 +50,9 @@ function ReservationCacelPage() {
     <Wrapper>
       {data ? (
         <>
-          <Title>{data.title}</Title>
+          <Title text_align="start" width="80%">
+            {data.title}
+          </Title>
           <InfoWrapper>
             <Poster src={poster} />
             <InfoBox>
@@ -48,14 +63,15 @@ function ReservationCacelPage() {
 
               <LabelWrapper>
                 <Text width="30%">공연 일자</Text>
-                <Text width="60%">
-                  {moment(data.ticketDate).format('YYYY.MM.DD')}
-                </Text>
+                <Text width="60%">{data.ticketDate.slice(0, 10)}</Text>
               </LabelWrapper>
 
               <LabelWrapper>
                 <Text width="30%">공연 시간</Text>
-                <Text width="60%">{data.runningTime}</Text>
+                <Text width="60%">
+                  {data.ticketDate.slice(11, 13)}시{' '}
+                  {data.ticketDate.slice(14, 16)}분{' '}
+                </Text>
               </LabelWrapper>
 
               <LabelWrapper>
@@ -70,7 +86,7 @@ function ReservationCacelPage() {
 
               <LabelWrapper color="var(--text-red)">
                 <Text width="30%">예매 취소 매수</Text>
-                <Text width="60%">{data.seatPrice}원</Text>
+                <Text width="60%">{data.seatsPrice}</Text>
               </LabelWrapper>
 
               <Button

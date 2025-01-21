@@ -1,10 +1,8 @@
-import { axiosPrivate } from 'apis/api';
+import { axiosPrivate } from 'apis/productApi';
 
 export const GetInventroyProduct = async (uuid: string) => {
   try {
-    const res = await axiosPrivate(
-      `8080/inventory?id=${uuid}`,
-    );
+    const res = await axiosPrivate(`products/inventory?id=${uuid}`);
     return res.data;
   } catch (err) {
     return err;

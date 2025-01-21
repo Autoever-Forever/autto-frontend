@@ -16,11 +16,11 @@ function MainPage() {
   } = useInfiniteQuery({
     queryKey: ['products'],
     queryFn: GetAllProduct,
-    getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < 5) {
+    getNextPageParam: (lastPage, allPage) => {
+      if (lastPage.data.length < 5) {
         return undefined;
       }
-      return lastPage.length - 4;
+      return allPage.length;
     },
     initialPageParam: 0,
   });
@@ -51,19 +51,14 @@ function MainPage() {
   if (isError) return <div>에러: {error.message}</div>;
 
   // API 응답 구조에 맞게 데이터 변환
-  const products = data?.pages.flatMap((page) => page) ?? [];
+  const products = data.pages.flatMap((page) => page.data) ?? [];
 
   return (
     <Wrapper>
       <Title style={{ textAlign: 'center' }}>이달의 공연</Title>
-      <Wrapper
-        flex_direction="row"
-        width="80%"
-        padding="0 10%"
-        style={{ overflow: 'scroll' }}
-      >
+      <Wrapper flex_direction="row" width="80%" padding="0 10%">
         {products.map((product, index) => (
-          <MainProduct
+          <MainPwroduct
             key={`${product.id}-${index}`}
             uuid={product.id}
             index={index}

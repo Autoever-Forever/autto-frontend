@@ -11,6 +11,7 @@ import {
 } from './MypageListStyle';
 import { Wrapper } from 'components/CommonStyle';
 import poster from 'assets/poster.png';
+import { useNavigate } from 'react-router-dom';
 interface MypageListProps {
   index: number;
   reservationNumber: string;
@@ -29,38 +30,42 @@ function MypageList({
   state,
   thumnailUrl,
 }: MypageListProps) {
-  
-  const onClick = () => {
-    
-  }
-  
+  const navigator = useNavigate();
+  const onClick = () => {};
+
   return (
     <Wrapper style={{ width: '80%' }}>
       <ReservationNumberBox index={index}>
         <ReservationNumber>예매번호 : {reservationNumber}</ReservationNumber>
-        <ReservationNumber
-          color="var(--text-red)"
-          style={{ textAlign: 'right' }}
-        >
-          예매 취소 &gt;
-        </ReservationNumber>
+        {state === 'ACTIVE' ? (
+          <ReservationNumber
+            color="var(--text-red)"
+            style={{ textAlign: 'right', cursor: 'pointer' }}
+            onClick={() => navigator(`/cancel/${reservationNumber}`)}
+          >
+            예매 취소 &gt;
+          </ReservationNumber>
+        ) : null}
       </ReservationNumberBox>
       <ReservationInfoBox>
         <PosterImg src={poster} />
         <TextInfoBox>
           <ProductTitle>{title}</ProductTitle>
 
-          <SubTitle>
-            예약 일자 : &nbsp;
-            <SubTitle as="span" color="black">
-              {createDate.slice(0, 10)}
-            </SubTitle>
-          </SubTitle>
+          {/* <SubTitle>
+            예매 일자 : &nbsp;
+            <SubTitle color="black">{createDate.slice(0, 10)}</SubTitle>
+          </SubTitle> */}
 
           <SubTitle>
             공연 일자 : &nbsp;
-            <SubTitle as="span" color="black">
-              {ticketDate.slice(0, 10)}
+            <SubTitle color="black">{ticketDate.slice(0, 10)}</SubTitle>
+          </SubTitle>
+
+          <SubTitle>
+            공연 시간 : &nbsp;
+            <SubTitle color="black">
+              {ticketDate.slice(11, 13)}시 {ticketDate.slice(14, 16)}분
             </SubTitle>
           </SubTitle>
 

@@ -21,14 +21,13 @@ function MainProduct({ uuid, index, title, posterUrl }: MainProductProps) {
   const onClick = () => {
     // react-query 에 uuid 값 가져가기
     setUuid(uuid);
-    console.log(uuid);
     navigator(`/product/${index}`);
   };
   return (
-    <Wrapper onClick={() => onClick()} width="25%">
+    <Wrapper onClick={async () => await onClick()} width="25%">
       <Poster src={poster} />
       <Text>{title} </Text>
-      <Text>초등학생 이상 관람가 </Text>
+      {/* <Text>초등학생 이상 관람가 </Text> */}
     </Wrapper>
   );
 }

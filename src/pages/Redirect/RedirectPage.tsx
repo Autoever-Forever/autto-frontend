@@ -68,7 +68,7 @@ function RedirectPage() {
         </LineBox>
       </InfoBox>
 
-      <Button onClick={onClick}>
+      <Button status={true} onClick={onClick}>
         {success == 'signUp' ? '로그인 하러 가기' : null}
         {success == 'reservation' ? '예매 내역 확인하러 가기' : null}
         {success == 'reservationCancel' ? '예매 취소 매수' : null}

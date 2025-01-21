@@ -20,7 +20,7 @@ interface ProductProps {
 const useProducts = create<ProductProps>((set) => ({
   uuid: sessionStorage.getItem('uuid'),
   setUuid: (value: string) => {
-    set({ selectDate: value });
+    set({ uuid: value });
     sessionStorage.setItem('uuid', value);
   },
   title: sessionStorage.getItem('title'),

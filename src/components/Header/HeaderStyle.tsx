@@ -15,6 +15,7 @@ export const Logo = styled.img`
   height: 2rem;
   text-align: center;
   margin: 1rem;
+  cursor: pointer;
 `;
 export const User = styled.i`
   display: flex;
@@ -30,6 +31,7 @@ export const UserImg = styled.img`
 `;
 
 export const Text = styled.div`
+  cursor: pointer;
   width: 10rem;
   margin: 3%;
 `;

@@ -7,7 +7,11 @@ import { useFormState } from 'react-dom';
 import { PostSignUp } from 'apis/user/PostSignUp';
 import { userInfo } from 'os';
 import useInfo from 'states/Variable';
+import { useNavigate } from 'react-router-dom';
+import useProducts from 'states/useProducts';
 function JoinForm() {
+  const naviagtor = useNavigate();
+
   const [name, setName] = useState<string>();
   const [emailId, setEmailId] = useState<string>();
   const [emailCode, setEmailCode] = useState<string>();
@@ -16,19 +20,17 @@ function JoinForm() {
   const [userPasswordCheck, setUserPasswordCheck] = useState<string>();
 
   const { setUserName, setUserEmail } = useInfo((state) => state);
+  const { setSuccess } = useProducts();
   const formData = new FormData();
 
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   // form 제출
-  const submitHandler = () => {
-    console.log('submit join');
-  };
+  const submitHandler = () => {};
 
   // 이메일 코드 전송
   const sendCode = async () => {
     if (!emailRegExp.test(emailId)) {
-      console.log('이메일 형식 불일치');
       alert('이메일 형식이 일치하지 않습니다. 다시 작성해주세요.');
     } else {
       try {
@@ -52,7 +54,7 @@ function JoinForm() {
   // 이메일 코드값 확인
   const checkCode = async () => {
     try {
-      const res = await PostEmailCheck(emailCode);
+      const res = await PostEmailCheck(emailId, emailCode);
       if (res.result) {
         alert('코드 인증이 완료되었습니다.');
         setEmailAvailable(true);
@@ -79,20 +81,21 @@ function JoinForm() {
     if (!name) {
       return alert('사용자 이름을 입력해주세요.');
     }
-    // 회원가입 정보 전송하기
-    formData.append('name', name);
-    formData.append('email', emailId);
-    formData.append('verficationCode', emailCode);
-    formData.append('userPw', userPassword);
-    formData.append('confirmPassword', userPassword);
 
     try {
-      const res = await PostSignUp(formData);
+      const res = await PostSignUp(
+        name,
+        emailId,
+        emailCode,
+        userPassword,
+        userPasswordCheck,
+      );
 
       if (res.result) {
         setUserName(res.data.name);
         setUserEmail(res.data.email);
-        return alert('회원가입이 성공적으로 완료되었습니다.');
+        setSuccess('signUp');
+        naviagtor('/success');
       } else {
         return alert('회원가입에 실패하였습니다. 다시 진행해주세요.');
       }

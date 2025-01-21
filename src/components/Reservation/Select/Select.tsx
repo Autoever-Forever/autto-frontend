@@ -32,7 +32,7 @@ function Select({
     queryKey: ['dates'],
     queryFn: () => GetInventroyProduct(uuid),
   });
-  const [invetory, setInventory] = useState();
+  const [inventory, setInventory] = useState();
 
   const { selectDate } = useProducts();
 
@@ -48,30 +48,31 @@ function Select({
     { value: 9, label: '9매' },
     { value: 10, label: '10매' },
   ];
-  useEffect(() => {
-    const foundDate = data.find((date) => date.date.includes(selectDate));
-    setSeatId(foundDate.id);
 
-    setInventory(foundDate || null);
+  useEffect(() => {
+    if (data.data) {
+      const dateData = data.data.filter((date) => {
+        return date.date.includes(selectDate);
+      });
+      setInventory(dateData[0]);
+    }
   }, [selectDate]);
 
   return (
     <>
-      {invetory ? (
+      {inventory ? (
         <Box>
           <Title> 관람 인원 선택</Title>
           <CntInfo>
-            {invetory.date?.slice(11, 13)}시 {invetory.date.slice(14, 16)}분
+            {inventory.date.slice(11, 13)}시 {inventory.date.slice(14, 16)}분
             공연
           </CntInfo>
-          <CntInfo>잔여 좌석 : {invetory?.inventroy}석</CntInfo>
+          <CntInfo>잔여 좌석 : {inventory.inventory}석</CntInfo>
           <Wrapper>
             <CustomSelect
               placeholder="0매"
               options={options}
-              onChange={(e) => {
-                setTotalSelect(e.value);
-              }}
+              onChange={(e) => setTotalSelect(e.value)}
             />
             {totalSelect && totalSelect > 6 ? (
               <ErrorText>예매티켓 수가 부족합니다.</ErrorText>
@@ -84,7 +85,12 @@ function Select({
             </InfoWrapper>
             <InfoWrapper>
               <Label>결제 금액</Label>
-              <Value>{totalSelect * invetory?.price}원</Value>
+              <Value>
+                {(totalSelect * inventory.price)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                원
+              </Value>
             </InfoWrapper>
           </TotalInfo>
         </Box>
