@@ -1,6 +1,6 @@
 import { axiosPrivate } from 'apis/productApi';
 
-export const GetInventroyProduct = async (uuid: string) => {
+export const GetInventoryProduct = async (uuid: string) => {
   try {
     const res = await axiosPrivate(`products/inventory?id=${uuid}`);
     return res.data;
