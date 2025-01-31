@@ -11,9 +11,9 @@ import {
   Value,
   Wrapper,
 } from './SelectStyle';
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import useProducts from 'states/useProducts';
-import { GetInventroyProduct } from 'apis/product/GetInventroyProduct';
+import { GetInventoryProduct } from 'apis/product/GetInventoryProduct';
 
 interface selectProps {
   totalSelect?: number;
@@ -21,16 +21,11 @@ interface selectProps {
   seatId: string;
   setSeatId?: (value: string) => void;
 }
-function Select({
-  totalSelect,
-  setTotalSelect,
-  seatId,
-  setSeatId,
-}: selectProps) {
+function Select({ totalSelect, setTotalSelect }: selectProps) {
   const { uuid } = useProducts();
   const { data } = useQuery({
     queryKey: ['dates'],
-    queryFn: () => GetInventroyProduct(uuid),
+    queryFn: () => GetInventoryProduct(uuid),
   });
   const [inventory, setInventory] = useState();
 

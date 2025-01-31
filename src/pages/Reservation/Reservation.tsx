@@ -5,7 +5,7 @@ import Select from 'components/Reservation/Select/Select';
 import { Button, Title, Wrapper } from 'components/CommonStyle';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import useProducts from 'states/useProducts';
-import { GetInventroyProduct } from 'apis/product/GetInventroyProduct';
+import { GetInventoryProduct } from 'apis/product/GetInventoryProduct';
 import { PostReservation } from 'apis/reservation/PostReservation';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,11 +19,11 @@ function Reservation() {
 
   const { data } = useQuery({
     queryKey: ['dates'],
-    queryFn: () => GetInventroyProduct(uuid),
+    queryFn: () => GetInventoryProduct(uuid),
   });
 
   useEffect(() => {
-    GetInventroyProduct(uuid);
+    GetInventoryProduct(uuid);
   }, []);
 
   const submitHandler = () => {

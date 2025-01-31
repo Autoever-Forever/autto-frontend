@@ -17,7 +17,7 @@ function MainPage() {
     queryKey: ['products'],
     queryFn: GetAllProduct,
     getNextPageParam: (lastPage, allPage) => {
-      if (lastPage.data.length < 5) {
+      if (lastPage.data !== null && lastPage.data.length < 5) {
         return undefined;
       }
       return allPage.length;
@@ -51,27 +51,31 @@ function MainPage() {
   if (isError) return <div>에러: {error.message}</div>;
 
   // API 응답 구조에 맞게 데이터 변환
-  const products = data.pages.flatMap((page) => page.data) ?? [];
+  const products = data.pages.flatMap((page) => page.data) ?? null;
 
   return (
     <Wrapper>
-      <Title style={{ textAlign: 'center' }}>이달의 공연</Title>
-      <Wrapper flex_direction="row" width="80%" padding="0 10%">
-        {products.map((product, index) => (
-          <MainPwroduct
-            key={`${product.id}-${index}`}
-            uuid={product.id}
-            index={index}
-            title={product.title}
-            posterUrl={product.posterUrl}
-          />
-        ))}
-      </Wrapper>
+      {products[0] !== null ? (
+        <>
+          <Title style={{ textAlign: 'center' }}>이달의 공연</Title>
+          <Wrapper flex_direction="row" width="80%" padding="0 10%">
+            {products.map((product, index) => (
+              <MainProduct
+                key={`${product.id}-${index}`}
+                uuid={product.id}
+                index={index}
+                title={product.title}
+                posterUrl={product.posterUrl}
+              />
+            ))}
+          </Wrapper>
 
-      {/* 관찰할 요소 */}
-      <div ref={observerRef} style={{ height: '10px' }}>
-        {isFetching && <div>추가 데이터 로딩 중...</div>}
-      </div>
+          {/* 관찰할 요소 */}
+          <div ref={observerRef} style={{ height: '10px' }}>
+            {isFetching && <div>추가 데이터 로딩 중...</div>}
+          </div>
+        </>
+      ) : null}
     </Wrapper>
   );
 }
