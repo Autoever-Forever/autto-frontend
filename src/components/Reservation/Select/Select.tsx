@@ -21,12 +21,13 @@ interface selectProps {
   seatId: string;
   setSeatId?: (value: string) => void;
 }
-function Select({ totalSelect, setTotalSelect }: selectProps) {
+function Select({ totalSelect, setTotalSelect, seatId, setSeatId }: selectProps) {
   const { uuid } = useProducts();
   const { data } = useQuery({
     queryKey: ['dates'],
     queryFn: () => GetInventoryProduct(uuid),
   });
+
   const [inventory, setInventory] = useState();
 
   const { selectDate } = useProducts();
@@ -51,15 +52,19 @@ function Select({ totalSelect, setTotalSelect }: selectProps) {
       });
       setInventory(dateData[0]);
     }
+    if (inventory) {
+      setSeatId(inventory.seatId);
+    }
   }, [selectDate]);
 
+  console.log(seatId);
   return (
     <>
       {inventory ? (
         <Box>
+
           <Title> 관람 인원 선택</Title>
           <CntInfo>
-            {inventory.date.slice(11, 13)}시 {inventory.date.slice(14, 16)}분
             공연
           </CntInfo>
           <CntInfo>잔여 좌석 : {inventory.inventory}석</CntInfo>

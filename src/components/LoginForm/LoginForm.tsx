@@ -39,7 +39,6 @@ function LoginForm() {
 
     try {
       const res = await GetLogin(id, password);
-
       setToken(res.data.accessToken);
       setUserName(res.data.name);
       setUserEmail(res.data.email);

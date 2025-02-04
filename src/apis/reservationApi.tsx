@@ -2,11 +2,6 @@ import axios from 'axios';
 
 export const baseUrl = 'http://localhost:8083';
 
-export const instance = axios.create({
-  baseURL: baseUrl,
-  headers: { 'Content-Type': 'application/json' },
-});
-
 export const axiosPrivate = axios.create({
   baseURL: baseUrl,
   headers: { 'Content-Type': 'application/json' },
@@ -14,7 +9,7 @@ export const axiosPrivate = axios.create({
 
 axiosPrivate.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
