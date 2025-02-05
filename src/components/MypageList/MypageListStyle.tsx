@@ -8,6 +8,7 @@ interface ReservationNumberProps {
 }
 interface SubTitleProps {
   color?: string;
+  flexDirection?: string;
 }
 interface StateBoxProps {
   now?: boolean;
@@ -38,13 +39,13 @@ export const ReservationInfoBox = styled.div`
 `;
 
 export const PosterImg = styled.img`
-  width: 10%;
+  width: 11%;
 `;
 export const TextInfoBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 1rem 1rem 1rem;
+  padding: 0 1rem;
 `;
 export const ProductTitleBox = styled.div`
   display: flex;
@@ -60,18 +61,24 @@ export const StateBox = styled.div<StateBoxProps>`
   align-items: flex-start;
   border-radius: 10px;
   padding: 5px;
-  /* margin: 0 10px; */
   padding: 10px;
   text-align: center;
-  background-color: ${({ now }) =>
+  /* background-color: ${({ now }) =>
     now ? 'rgba(162,210,255, 0.3)' : 'rgba(255,127,80, 0.3)'};
-  color: ${({ now }) => (now ? 'var(--text-blue)' : 'var(--text-red')};
+  color: ${({ now }) => (now ? 'var(--text-blue)' : 'var(--text-red')}; */
 `;
 export const SubTitle = styled.div<SubTitleProps>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${({ flexDirection }) =>
+    flexDirection ? flexDirection : 'row'};
   text-align: left;
   align-items: center;
   padding: 5px 0;
   color: ${({ color }) => (color ? color : 'var(--text-grey)')};
+`;
+
+export const InfoLineBox = styled.div`
+  display: flex;
+  flex-direction: 'row';
+  padding: 10px 15px;
 `;

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {
+  InfoLineBox,
   PosterImg,
   ProductTitle,
   ReservationInfoBox,
@@ -31,7 +32,6 @@ function MypageList({
   thumnailUrl,
 }: MypageListProps) {
   const navigator = useNavigate();
-  const onClick = () => {};
 
   return (
     <Wrapper style={{ width: '80%' }}>
@@ -39,42 +39,49 @@ function MypageList({
         <ReservationNumber>예매번호 : {reservationNumber}</ReservationNumber>
         {state === 'ACTIVE' ? (
           <ReservationNumber
-            color="var(--text-red)"
+            color="var(--text-blue)"
             style={{ textAlign: 'right', cursor: 'pointer' }}
             onClick={() => navigator(`/cancel/${reservationNumber}`)}
           >
             예매 취소 &gt;
           </ReservationNumber>
-        ) : null}
+        ) : (
+          <ReservationNumber
+            color="var(--text-red)"
+            style={{ textAlign: 'right' }}
+          >
+            취소 완료
+          </ReservationNumber>
+        )}
       </ReservationNumberBox>
       <ReservationInfoBox>
-        <PosterImg src={poster} />
+        <PosterImg src={thumnailUrl} />
         <TextInfoBox>
           <ProductTitle>{title}</ProductTitle>
 
-          {/* <SubTitle>
-            예매 일자 : &nbsp;
+          <InfoLineBox>
+            <SubTitle>예매 일자 : &nbsp;</SubTitle>
             <SubTitle color="black">{createDate.slice(0, 10)}</SubTitle>
-          </SubTitle> */}
+          </InfoLineBox>
 
-          <SubTitle>
-            공연 일자 : &nbsp;
+          <InfoLineBox>
+            <SubTitle>공연 일자 : &nbsp;</SubTitle>
             <SubTitle color="black">{ticketDate.slice(0, 10)}</SubTitle>
-          </SubTitle>
+          </InfoLineBox>
 
-          <SubTitle>
-            공연 시간 : &nbsp;
+          <InfoLineBox>
+            <SubTitle>공연 시간 : &nbsp;</SubTitle>
             <SubTitle color="black">
               {ticketDate.slice(11, 13)}시 {ticketDate.slice(14, 16)}분
             </SubTitle>
-          </SubTitle>
+          </InfoLineBox>
 
-          <SubTitle>
-            예매 상태 : &nbsp;
+          {/* <InfoLineBox>
+            <SubTitle>예매 상태 : &nbsp;</SubTitle>
             <StateBox as="span" now={state == 'ACTIVE'}>
               {state == 'ACTIVE' ? '예매 완료' : '취소 완료'}
             </StateBox>
-          </SubTitle>
+          </InfoLineBox> */}
         </TextInfoBox>
       </ReservationInfoBox>
     </Wrapper>

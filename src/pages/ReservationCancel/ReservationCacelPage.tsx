@@ -10,8 +10,6 @@ import poster from 'assets/poster.png';
 import { Title, Button, Wrapper } from 'components/CommonStyle';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GetReservationCancel } from 'apis/reservation/GetReservationCancel';
-import { useQuery } from '@tanstack/react-query';
-import moment from 'moment';
 import { PostReservationCancel } from 'apis/reservation/PostReservationCancel';
 import useProducts from 'states/useProducts';
 
@@ -36,13 +34,15 @@ function ReservationCacelPage() {
 
   const onClick = async () => {
     const res = await PostReservationCancel(reservationId);
-    if (res.data) {
+    console.log('cancel res:', res);
+
+    if (data && res.success) {
       // 예매 취소 완료인 상태
       setSuccess('reservationCancel');
       setSeatCnt(data.seatCount);
-      navigator('/success');
+      return navigator('/success');
     } else {
-      alert('예매를 취소하지 못했습니다. 다시 시도해주세요.');
+      return alert('예매를 취소하지 못했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -90,7 +90,7 @@ function ReservationCacelPage() {
               </LabelWrapper>
 
               <Button
-                status={data.staus == 'ACTIVE'}
+                status={true}
                 onClick={() => onClick()}
                 position="relative"
               >

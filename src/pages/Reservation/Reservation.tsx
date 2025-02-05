@@ -3,7 +3,7 @@ import { ButtonBox, ReservationBox, SubInfo } from './ReservationStyle';
 import Calendar from 'components/Reservation/Calendar/Calendar';
 import Select from 'components/Reservation/Select/Select';
 import { Button, Title, Wrapper } from 'components/CommonStyle';
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import useProducts from 'states/useProducts';
 import { GetInventoryProduct } from 'apis/product/GetInventoryProduct';
 import { PostReservation } from 'apis/reservation/PostReservation';
@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Reservation() {
   const navigator = useNavigate();
-  const queryClient = new QueryClient();
   const { uuid, setSuccess, setTitle, setSeatCnt } = useProducts();
   const reservationInfo = new FormData();
   const [totalSelect, setTotalSelect] = useState(0);
@@ -28,18 +27,18 @@ function Reservation() {
 
   const submitHandler = () => {
     // 예약 정보 전송하는 api 연결
-    const postReservation = async (reservationInfo: FormData) => {
+    const postMyReservation = async (reservationInfo: FormData) => {
       try {
         const res = await PostReservation(reservationInfo);
+        console.log('post reservation', res);
 
         if (res) {
-          setTitle(data.date[0].title);
-          setSeatCnt(totalSelect);
-          setSuccess('reservation');
-          navigator('/success');
+          setTitle(data.data[0].title);
+          return setSeatCnt(totalSelect);
         }
       } catch (err) {
-        alert('에약에 실패하였습니다.');
+        console.log(err);
+        return alert('에약에 실패하였습니다.');
       }
     };
     // 예약 정보 request 생성
@@ -49,13 +48,11 @@ function Reservation() {
 
     // 예약 요청
     try {
-      const res = postReservation(reservationInfo);
+      const res = postMyReservation(reservationInfo);
       if (res) {
         alert('예약이 완료되었습니다.');
-        navigator("/mypage");
-        // 완료페이지로 이동
-      } else {
-        return alert('예약에 실패하였습니다. 다시 시도해주세요.');
+        setSuccess('reservation');
+        return navigator('/success');
       }
     } catch (err) {
       return err;

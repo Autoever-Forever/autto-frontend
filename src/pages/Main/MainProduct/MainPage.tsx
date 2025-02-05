@@ -2,7 +2,7 @@ import MainProduct from 'components/MainProduct/MainProduct';
 import React, { useEffect, useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { GetAllProduct } from 'apis/product/GetAllProduct';
-import { RowWrapper, Title, Wrapper } from 'components/CommonStyle';
+import { Title, Wrapper } from 'components/CommonStyle';
 
 function MainPage() {
   const {
@@ -58,7 +58,7 @@ function MainPage() {
       {products[0] !== null ? (
         <>
           <Title style={{ textAlign: 'center' }}>이달의 공연</Title>
-          <Wrapper flex_direction="row" width="80%" padding="0 10%">
+          <Wrapper flex_direction="row" style={{ width: '80%' }}>
             {products.map((product, index) => (
               <MainProduct
                 key={`${product.id}-${index}`}

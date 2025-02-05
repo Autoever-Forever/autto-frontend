@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Poster = styled.img`
-  width: 70%;
+  width: 100%;
   height: 100%;
 `;
 export const Text = styled.div`

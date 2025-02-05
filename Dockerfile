@@ -1,47 +1,39 @@
-# Build stage
+# Build stage - 'builder'를 명시적으로 지정
 FROM node:18-alpine AS builder
 
-# Set working directory
 WORKDIR /app
-
-# Copy package files for dependency installation
 COPY package.json package-lock.json ./
-
-# Install dependencies using clean install
 RUN npm ci
-
-# Copy all source files
 COPY . .
-
-# Build the React application
 ENV NODE_ENV=production
 RUN npm run build
 
 # Production stage
 FROM nginx:alpine
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# 기존 nginx.conf의 user와 pid 지시문 제거
+RUN sed -i '/user/d' /etc/nginx/nginx.conf && \
+    sed -i '/pid/d' /etc/nginx/nginx.conf
 
-# Copy built files from builder stage
-COPY --from=builder /app/build /usr/share/nginx/html
+# 커스텀 nginx 설정 파일 복사
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Add health check
-HEALTHCHECK --interval=30s --timeout=3s \
-    CMD wget --quiet --tries=1 --spider http://localhost:80/ || exit 1
+# 빌드된 파일 복사
+COPY --from=builder /app/build /usr/share/nginx/html/
 
-# Add permissions for nginx user
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
+# 로그 및 필요한 디렉토리 생성과 권한 설정
+RUN mkdir -p /tmp/nginx /var/log/nginx && \
+    chown -R nginx:nginx /usr/share/nginx/html && \
     chmod -R 755 /usr/share/nginx/html && \
     chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
-    chown -R nginx:nginx /etc/nginx/conf.d
+    chown -R nginx:nginx /etc/nginx/conf.d && \
+    chown -R nginx:nginx /tmp/nginx && \
+    chmod -R 755 /tmp/nginx
 
-# Switch to non-root user
 USER nginx
-
-# Expose port 80
 EXPOSE 80
+EXPOSE 3000
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# pid 파일 위치를 CMD에서 지정
+CMD ["nginx", "-g", "daemon off;pid /tmp/nginx/nginx.pid;"]

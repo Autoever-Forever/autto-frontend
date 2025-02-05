@@ -13,10 +13,7 @@ import useProducts from 'states/useProducts';
 import { GetDetailProduct } from 'apis/product/GetDetailProduct';
 import useInfo from 'states/Variable';
 
-interface DetailProductProps {
-  productId?: string;
-}
-function DetailProduct({ productId }: DetailProductProps) {
+function DetailProduct() {
   const { id } = useParams();
   const navigator = useNavigate();
   const { uuid } = useProducts();
@@ -34,20 +31,18 @@ function DetailProduct({ productId }: DetailProductProps) {
       }
     };
     GetDetail();
-
-    // setData(res.data);
   }, []);
 
   //예매하기 버튼 누를 때
   const onClick = () => {
     // 로그인 되어 있을 때
     if (token) {
-      navigator(`/inventory/${id}`);
+      return navigator(`/inventory/${id}`);
     }
     // 로그인 안되어 있을
     else {
       alert('로그인 후 이용해주세요.');
-      navigator('/login');
+      return navigator('/login');
     }
   };
 
@@ -59,7 +54,7 @@ function DetailProduct({ productId }: DetailProductProps) {
             {data.title}
           </Title>
           <InfoWrapper>
-            <Poster src={poster} />
+            <Poster src={data.posterUrl} />
             <InfoBox>
               <LabelWrapper>
                 <Text width="30%">장소</Text>

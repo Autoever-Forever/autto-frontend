@@ -21,7 +21,12 @@ interface selectProps {
   seatId: string;
   setSeatId?: (value: string) => void;
 }
-function Select({ totalSelect, setTotalSelect, seatId, setSeatId }: selectProps) {
+function Select({
+  totalSelect,
+  setTotalSelect,
+  seatId,
+  setSeatId,
+}: selectProps) {
   const { uuid } = useProducts();
   const { data } = useQuery({
     queryKey: ['dates'],
@@ -30,7 +35,7 @@ function Select({ totalSelect, setTotalSelect, seatId, setSeatId }: selectProps)
 
   const [inventory, setInventory] = useState();
 
-  const { selectDate } = useProducts();
+  const { selectDate, setTitle, setSeatCnt } = useProducts();
 
   const options = [
     { value: 1, label: '1매' },
@@ -51,9 +56,10 @@ function Select({ totalSelect, setTotalSelect, seatId, setSeatId }: selectProps)
         return date.date.includes(selectDate);
       });
       setInventory(dateData[0]);
-    }
-    if (inventory) {
-      setSeatId(inventory.seatId);
+      if (dateData[0]) {
+        setSeatId(dateData[0].seatId);
+        setTitle(dateData[0].title);
+      }
     }
   }, [selectDate]);
 
@@ -62,17 +68,17 @@ function Select({ totalSelect, setTotalSelect, seatId, setSeatId }: selectProps)
     <>
       {inventory ? (
         <Box>
-
           <Title> 관람 인원 선택</Title>
-          <CntInfo>
-            공연
-          </CntInfo>
+          <CntInfo>공연</CntInfo>
           <CntInfo>잔여 좌석 : {inventory.inventory}석</CntInfo>
           <Wrapper>
             <CustomSelect
               placeholder="0매"
               options={options}
-              onChange={(e) => setTotalSelect(e.value)}
+              onChange={(e) => {
+                setTotalSelect(e.value);
+                setSeatCnt(e.value);
+              }}
             />
             {totalSelect && totalSelect > 6 ? (
               <ErrorText>예매티켓 수가 부족합니다.</ErrorText>

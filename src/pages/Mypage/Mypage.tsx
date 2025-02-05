@@ -13,24 +13,18 @@ function Mypage() {
         const res = await GetReservation();
         setReservationList(res.data);
       } catch (err) {
-        alert('없음');
-        return err;
+        return alert('없음');
       }
     };
     GetMyList();
   }, []);
 
-  const cancelHandler = () => {
-    // 예약 취소하는 api 연결
-    console.log('cancel ticket');
-  };
-
+  console.log(reservationList);
   return (
     <Wrapper>
+      <Title>예약 확인</Title>
       {reservationList ? (
         <>
-          <Title>예약 확인</Title>
-
           {reservationList.map((data, ind) => {
             return (
               <MypageList

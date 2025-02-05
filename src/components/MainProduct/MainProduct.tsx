@@ -1,6 +1,7 @@
 import React from 'react';
 import { Poster, Text } from './MainProductStyle';
 import poster from 'assets/poster.png';
+import logo from 'assets/Logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { RowWrapper, Wrapper } from 'components/CommonStyle';
 import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -24,8 +25,8 @@ function MainProduct({ uuid, index, title, posterUrl }: MainProductProps) {
     navigator(`/product/${index}`);
   };
   return (
-    <Wrapper onClick={async () => await onClick()} width="25%">
-      <Poster src={poster} />
+    <Wrapper onClick={async () => await onClick()} width="25%" padding="10px">
+      <Poster src={posterUrl} alt="poster url" />
       <Text>{title} </Text>
       {/* <Text>초등학생 이상 관람가 </Text> */}
     </Wrapper>
