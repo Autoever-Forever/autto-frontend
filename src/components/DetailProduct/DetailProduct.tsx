@@ -3,59 +3,103 @@ import {
   InfoBox,
   InfoWrapper,
   Poster,
-  Title,
-  Wrapper,
   LabelWrapper,
   Text,
-  Button,
 } from './DetailProductStyle';
-import tempImg from 'assets/Logo.svg';
-import { useNavigate, useParams } from 'react-router-dom';
+import poster from 'assets/poster.png';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { Button, Wrapper, Title } from 'components/CommonStyle';
+import useProducts from 'states/useProducts';
+import { GetDetailProduct } from 'apis/product/GetDetailProduct';
+import useInfo from 'states/Variable';
 
-interface DetailProductProps {
-  productId?: string;
-}
-function DetailProduct({ productId }: DetailProductProps) {
+function DetailProduct() {
   const { id } = useParams();
   const navigator = useNavigate();
-  const [productInfo, setProductInfo] = useState([]);
+  const { uuid } = useProducts();
+  const { token } = useInfo();
 
-  const data = [
-    { label: '공연 제목', value: '뮤지컬 <시라노>' },
-    { label: '장소', value: '예술의 전당 CJ 토월극장' },
-    { label: '공연기간', value: '2024.12.06 ~ 2025.02.03' },
-    { label: '공연시간', value: '160분(인터미션 20분 포함)' },
-    { label: '관람연령', value: '초등학생 이상 관람가' },
-    { label: '가격', value: '150,000원' },
-  ];
-  // 상품 상세 정보 가져오기
+  const [data, setData] = useState();
+
   useEffect(() => {
-    //productId 값 넣어서 상품 상세 정보 가져오기
-    setProductInfo(data);
+    const GetDetail = async () => {
+      try {
+        const res = await GetDetailProduct(uuid);
+        setData(res.data);
+      } catch (err) {
+        return err;
+      }
+    };
+    GetDetail();
   }, []);
+
+  //예매하기 버튼 누를 때
+  const onClick = () => {
+    // 로그인 되어 있을 때
+    if (token) {
+      return navigator(`/inventory/${id}`);
+    }
+    // 로그인 안되어 있을
+    else {
+      alert('로그인 후 이용해주세요.');
+      return navigator('/login');
+    }
+  };
 
   return (
     <Wrapper>
-      <Title>{data[0].value}</Title>
-      <InfoWrapper>
-        <Poster src={tempImg} />
-        <InfoBox>
-          {productInfo.map((data, ind) => {
-            if (ind == 0) {
-              return null;
-            }
-            return (
-              <LabelWrapper key={ind}>
-                <Text width="30%">{data.label}</Text>
-                <Text width="60%">{data.value}</Text>
+      {data && data.price ? (
+        <>
+          <Title text_align="start" width="80%">
+            {data.title}
+          </Title>
+          <InfoWrapper>
+            <Poster src={data.posterUrl} />
+            <InfoBox>
+              <LabelWrapper>
+                <Text width="30%">장소</Text>
+                <Text width="60%">{data.location}</Text>
               </LabelWrapper>
-            );
-          })}
-          <Button onClick={() => navigator(`/reservation/${id}`)}>
-            예매하기
-          </Button>
-        </InfoBox>
-      </InfoWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">공연 기간</Text>
+                <Text width="60%">
+                  {data.performStartDate.slice(0, 10)} ~{' '}
+                  {data.performEndDate.slice(0, 10)}
+                </Text>
+              </LabelWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">공연 시간</Text>
+                <Text width="60%">시작 시간 ({data.runningTime})</Text>
+              </LabelWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">가격</Text>
+                <Text width="60%">
+                  {data?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                  원
+                </Text>
+              </LabelWrapper>
+
+              <LabelWrapper>
+                <Text width="30%">최대 매수</Text>
+                <Text width="60%">{data.ticketLimit} 매</Text>
+              </LabelWrapper>
+
+              <Button
+                onClick={() => onClick()}
+                position="relative"
+                status={true}
+              >
+                예매하기
+              </Button>
+            </InfoBox>
+          </InfoWrapper>
+        </>
+      ) : (
+        <div>404error</div>
+      )}
     </Wrapper>
   );
 }

@@ -3,6 +3,9 @@ import styled from 'styled-components';
 interface Textprops {
   width: string;
 }
+interface LabelWrapperProps {
+  color?: string;
+}
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,34 +21,30 @@ export const Title = styled.div`
 `;
 export const InfoWrapper = styled.div`
   display: flex;
+  width: 80%;
+  min-height: 100%;
   flex-direction: row;
   justify-content: space-between;
+  padding: 5% 0;
 `;
 export const Poster = styled.img`
   width: 30%;
-  height: 60%;
 `;
 export const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
+  height: 100%;
 `;
-export const LabelWrapper = styled.div`
+export const LabelWrapper = styled.div<LabelWrapperProps>`
   display: flex;
   flex-direction: row;
-  width: 100%;
-  font-size: 2rem;
-  margin-bottom: 3rem;
+  width: 80%;
+  font-size: 100%;
+  margin-bottom: 5%;
+  color: ${({ color }) => (color ? color : null)};
 `;
 export const Text = styled.div<Textprops>`
   width: ${({ width }) => width};
   text-align: left;
-`;
-export const Button = styled.button`
-  padding: 2rem;
-  border-radius: 10px;
-  border: none;
-  font-size: 2rem;
-  font-weight: bold;
-  cursor: pointer;
 `;

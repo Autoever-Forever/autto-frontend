@@ -14,8 +14,15 @@ export const GlobalStyle = createGlobalStyle`
     --text-white: #FFFFFF;
     --text-orange: #FF7F50;
     --text-red: #E63312;
+    --text-blue: #0A84FF;
+    --text-deepgrey: #828282;
 
+
+    --bg-mint: #A2D2FF;
     --bg-grey: #F0F0F0;
+  
+
+    --border-grey: #D4D4D4
     }
     
 `;

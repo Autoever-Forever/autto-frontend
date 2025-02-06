@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, CustomCalendar, Title } from './CalendarStyle';
 import moment from 'moment';
+import useProducts from 'states/useProducts';
 
 function Calendar() {
-  const [selectDate, setSelectDate] = useState(new Date());
+  const { setSelectDate } = useProducts();
+
   return (
     <Box>
       <Title>관람일</Title>
       <CustomCalendar
-        defaultValue={selectDate}
+        defaultValue={new Date()}
         onChange={(value: Date) => {
-          setSelectDate(value);
+          const formattedDate = moment(value).format('YYYY-MM-DD');
+          setSelectDate(formattedDate);
         }}
         formatDay={(locale, date) => moment(date).format('D')}
       />

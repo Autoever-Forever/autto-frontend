@@ -19,7 +19,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 40%;
+  width: 100%;
 `;
 export const CategoryWrapper = styled.div`
   display: flex;
@@ -50,7 +50,7 @@ export const Button = styled.button<ButtonProps>`
   background-color: ${({ available }) =>
     available ? 'var(--main-blue)' : 'var(--bg-grey)'};
   border-radius: 10px;
-  padding: ${({ padding }) => (padding ? padding : '0.5rem')};
+  padding: ${({ padding }) => (padding ? padding : '10px')};
   border: none;
   width: ${({ size }) => (size ? size : '100%')};
   margin-top: ${({ margin }) => (margin ? margin : 0)};

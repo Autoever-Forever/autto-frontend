@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   position: sticky;
+  top: 0;
   width: 100%;
   background-color: white;
   box-shadow: 0 0 5px 0 black;
@@ -14,8 +15,9 @@ export const Logo = styled.img`
   height: 2rem;
   text-align: center;
   margin: 1rem;
+  cursor: pointer;
 `;
-export const User = styled.div`
+export const User = styled.i`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -26,4 +28,10 @@ export const UserImg = styled.img`
   width: 2rem;
   height: 2rem;
   margin: 1rem;
+`;
+
+export const Text = styled.div`
+  cursor: pointer;
+  width: 10rem;
+  margin: 3%;
 `;

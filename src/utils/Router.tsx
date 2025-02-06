@@ -6,8 +6,10 @@ import JoinIndex from 'pages/User/Join/JoinIndex';
 import MainPage from 'pages/Main/MainProduct/MainPage';
 import DetailIndex from 'pages/Main/DetailProduct/DetailIndex';
 import ReservationIndex from 'pages/Reservation/ReservationIndex';
-import Mypage from 'pages/Mypage/Mypage';
 import MypageIndex from 'pages/Mypage/MyPageIndex';
+import RedirectIndex from 'pages/Redirect/RedirectIndex';
+import ReservationCancelIndex from 'pages/ReservationCancel/ReservationCancelIndex';
+
 
 function Router() {
   return (
@@ -18,13 +20,21 @@ function Router() {
 
         <Route path="/signup" element={<JoinIndex />} />
 
-        <Route path="/main" element={<MainPage />} />
+        <Route path="/" element={<MainPage />} />
 
         <Route path="/product/:id" element={<DetailIndex />} />
 
-        <Route path="/reservation/:id" element={<ReservationIndex />} />
+        <Route path="/inventory/:id" element={<ReservationIndex />} />
 
         <Route path="/mypage" element={<MypageIndex />} />
+
+        <Route path="/success" element={<RedirectIndex />} />
+        
+        <Route
+          path="/cancel/:reservationId"
+          element={<ReservationCancelIndex />}
+        />
+
       </Routes>
     </>
   );

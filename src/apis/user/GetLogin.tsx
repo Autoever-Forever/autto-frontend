@@ -1,14 +1,14 @@
-import { instance } from 'apis/api';
+import { instance } from 'apis/userApi';
 
 export const GetLogin = async (id: string, password: string) => {
   try {
-    const res = await instance.post('/auth/sign-in', {
-      id: id,
+    const res = await instance.post('auth/sign-in', {
+      email: id,
       password: password,
     });
+
     return res.data;
   } catch (err) {
-    console.log(err);
     return err;
   }
 };

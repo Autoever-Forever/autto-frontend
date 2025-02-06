@@ -1,32 +1,93 @@
-import React from 'react';
-import {
-  Button,
-  ButtonBox,
-  ReservationBox,
-  SubInfo,
-  Title,
-  Wrapper,
-} from './ResercationStyle';
+import React, { useEffect, useState } from 'react';
+import { ButtonBox, ReservationBox, SubInfo } from './ReservationStyle';
 import Calendar from 'components/Reservation/Calendar/Calendar';
 import Select from 'components/Reservation/Select/Select';
+import { Button, Title, Wrapper } from 'components/CommonStyle';
+import { useQuery } from '@tanstack/react-query';
+import useProducts from 'states/useProducts';
+import { GetInventoryProduct } from 'apis/product/GetInventoryProduct';
+import { PostReservation } from 'apis/reservation/PostReservation';
+import { useNavigate } from 'react-router-dom';
 
 function Reservation() {
+  const navigator = useNavigate();
+  const { uuid, setSuccess, setTitle, setSeatCnt } = useProducts();
+  const reservationInfo = new FormData();
+  const [totalSelect, setTotalSelect] = useState(0);
+  const [seatId, setSeatId] = useState('');
+
+  const { data } = useQuery({
+    queryKey: ['dates'],
+    queryFn: () => GetInventoryProduct(uuid),
+  });
+
+  useEffect(() => {
+    GetInventoryProduct(uuid);
+  }, []);
+
   const submitHandler = () => {
-    // 예약 정보 전성하는 api 연결
-    console.log('예약 완료');
+    // 예약 정보 전송하는 api 연결
+    const postMyReservation = async (reservationInfo: FormData) => {
+      try {
+        const res = await PostReservation(reservationInfo);
+        console.log('post reservation', res);
+
+        if (res) {
+          setTitle(data.data[0].title);
+          return setSeatCnt(totalSelect);
+        }
+      } catch (err) {
+        console.log(err);
+        return alert('에약에 실패하였습니다.');
+      }
+    };
+    // 예약 정보 request 생성
+    reservationInfo.append('productId', uuid);
+    reservationInfo.append('seatId', seatId);
+    reservationInfo.append('seatCount', totalSelect.toString());
+
+    // 예약 요청
+    try {
+      const res = postMyReservation(reservationInfo);
+      if (res) {
+        alert('예약이 완료되었습니다.');
+        setSuccess('reservation');
+        return navigator('/success');
+      }
+    } catch (err) {
+      return err;
+    }
   };
+
   return (
     <Wrapper>
-      <Title>뮤지컬 [시라노]</Title>
-      <SubInfo>예술의 전당 CJ 토월 극장 | 2024.12.03 ~ 2025.02.23</SubInfo>
-      <ReservationBox>
-        <Calendar />
-        <Select />
-      </ReservationBox>
+      {data ? (
+        <>
+          <Title text_align="start" width="80%">
+            {data.data[0].title}
+          </Title>
+          <SubInfo>
+            {data.data[0].location} |{' '}
+            {data.data[0].performStartDate.slice(0, 10)} ~
+            {data.data[0].performEndDate.slice(0, 10)}
+          </SubInfo>
+          <ReservationBox>
+            <Calendar />
+            <Select
+              totalSelect={totalSelect}
+              setTotalSelect={setTotalSelect}
+              seatId={seatId}
+              setSeatId={setSeatId}
+            />
+          </ReservationBox>
 
-      <ButtonBox>
-        <Button onClick={submitHandler}>예약하기</Button>
-      </ButtonBox>
+          <ButtonBox>
+            <Button onClick={submitHandler} width="30%" status>
+              예약하기
+            </Button>
+          </ButtonBox>
+        </>
+      ) : null}
     </Wrapper>
   );
 }

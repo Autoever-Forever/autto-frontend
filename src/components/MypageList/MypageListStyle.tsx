@@ -1,31 +1,51 @@
 import styled from 'styled-components';
-export const ReservationNumberBox = styled.div`
-  border: solid 1px black;
+interface ReservationNumberBoxProps {
+  index?: number;
+}
+
+interface ReservationNumberProps {
+  color?: string;
+}
+interface SubTitleProps {
+  color?: string;
+  flexDirection?: string;
+}
+interface StateBoxProps {
+  now?: boolean;
+}
+export const ReservationNumberBox = styled.div<ReservationNumberBoxProps>`
+  border: solid 1px var(--border-grey);
+  border-bottom: none;
+  border-radius: ${({ index }) => (index == 0 ? '10px 10px 0 0 ' : null)};
   padding: 1rem;
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  color: var(--text-deepgrey);
+`;
+export const ReservationNumber = styled.text<ReservationNumberProps>`
+  width: 70%;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: bold;
+  color: ${({ color }) => (color ? color : null)};
 `;
 export const ReservationInfoBox = styled.div`
-  border: solid 1px black;
+  border: solid 1px var(--border-grey);
   padding: 1rem;
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
 `;
-export const ReservationNumber = styled.text`
-  width: 30%;
-  text-align: left;
-  font-weight: bold;
-`;
+
 export const PosterImg = styled.img`
-  width: 3rem;
-  height: 5rem;
+  width: 11%;
 `;
 export const TextInfoBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 1rem 1rem 1rem;
+  width: 100%;
+  padding: 0 1rem;
 `;
 export const ProductTitleBox = styled.div`
   display: flex;
@@ -36,12 +56,29 @@ export const ProductTitleBox = styled.div`
 export const ProductTitle = styled.div`
   margin-bottom: 1rem;
 `;
-export const StateBox = styled.div`
+export const StateBox = styled.div<StateBoxProps>`
+  display: flex;
+  align-items: flex-start;
   border-radius: 10px;
   padding: 5px;
-  margin: 0 10px;
-  background-color: grey;
+  padding: 10px;
+  text-align: center;
+  /* background-color: ${({ now }) =>
+    now ? 'rgba(162,210,255, 0.3)' : 'rgba(255,127,80, 0.3)'};
+  color: ${({ now }) => (now ? 'var(--text-blue)' : 'var(--text-red')}; */
 `;
-export const SubTitle = styled.div`
+export const SubTitle = styled.div<SubTitleProps>`
+  display: flex;
+  flex-direction: ${({ flexDirection }) =>
+    flexDirection ? flexDirection : 'row'};
   text-align: left;
+  align-items: center;
+  padding: 5px 0;
+  color: ${({ color }) => (color ? color : 'var(--text-grey)')};
+`;
+
+export const InfoLineBox = styled.div`
+  display: flex;
+  flex-direction: 'row';
+  padding: 10px 15px;
 `;

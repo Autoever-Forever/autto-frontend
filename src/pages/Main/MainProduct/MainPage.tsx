@@ -1,40 +1,82 @@
 import MainProduct from 'components/MainProduct/MainProduct';
-import { Title } from 'components/MainProduct/MainProductStyle';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { GetAllProduct } from 'apis/product/GetAllProduct';
+import { Title, Wrapper } from 'components/CommonStyle';
 
 function MainPage() {
-  const [productList, setProducList] = useState([]);
-  const data = [
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-    { title: '뮤지컬 <시라노>', productPeriod: '2024.12.12 ~ 2025.01.01' },
-  ];
-  // 상품 리스트 가져오기
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ['products'],
+    queryFn: GetAllProduct,
+    getNextPageParam: (lastPage, allPage) => {
+      if (lastPage.data !== null && lastPage.data.length < 5) {
+        return undefined;
+      }
+      return allPage.length;
+    },
+    initialPageParam: 0,
+  });
+
+  const observerRef = useRef(null);
+  if (data && data.pages == undefined) {
+    return alert('페이지가 끝났습니다. ');
+  }
+
   useEffect(() => {
-    // 상품 리스트 가져오는 api 연결
-    setProducList(data);
-  }, []);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 1.0 },
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isFetching]);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>에러: {error.message}</div>;
+
+  // API 응답 구조에 맞게 데이터 변환
+  const products = data.pages.flatMap((page) => page.data) ?? null;
+
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-    >
-      <Title style={{ textAlign: 'center' }}>이달의 공연</Title>
-      {productList.map((data, ind) => {
-        return (
-          <MainProduct
-            key={ind}
-            title={data.title}
-            productPeriod={data.productPeriod}
-          />
-        );
-      })}
-    </div>
+    <Wrapper>
+      {products[0] !== null ? (
+        <>
+          <Title style={{ textAlign: 'center' }}>이달의 공연</Title>
+          <Wrapper flex_direction="row" style={{ width: '80%' }}>
+            {products.map((product, index) => (
+              <MainProduct
+                key={`${product.id}-${index}`}
+                uuid={product.id}
+                index={index}
+                title={product.title}
+                posterUrl={product.posterUrl}
+              />
+            ))}
+          </Wrapper>
+
+          {/* 관찰할 요소 */}
+          <div ref={observerRef} style={{ height: '10px' }}>
+            {isFetching && <div>추가 데이터 로딩 중...</div>}
+          </div>
+        </>
+      ) : null}
+    </Wrapper>
   );
 }
 
