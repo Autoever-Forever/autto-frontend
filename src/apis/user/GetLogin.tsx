@@ -2,7 +2,7 @@ import { instance } from 'apis/userApi';
 
 export const GetLogin = async (id: string, password: string) => {
   try {
-    const res = await instance.post('auth/sign-in', {
+    const res = await instance.post('/sign-in', {
       email: id,
       password: password,
     });

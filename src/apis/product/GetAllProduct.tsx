@@ -1,8 +1,9 @@
 import { instance } from 'apis/productApi';
 
+// 상품 전체 목록 조회
 export const GetAllProduct = async ({ pageParam = 0 }) => {
   try {
-    const res = await instance.get(`/products/?pageNum=${pageParam}`);
+    const res = await instance.get(`/info/?pageNum=${pageParam}`);
 
     if (!res.data) {
       alert('더이상의 데이터는 없습니다.');
