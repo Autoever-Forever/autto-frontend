@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonBox, ReservationBox, SubInfo, ContentSection, PosterWrapper, Poster, InfoSection, Title, SectionTitle, PriceInfo, PriceLabel, Price, SelectionInfo, InfoRow, Label, Value, PageWrapper } from './ReservationStyle';
+import { ButtonBox, ReservationBox, SubInfo, ContentSection, PosterWrapper, Poster, InfoSection, Title, SectionTitle, PriceInfo, PriceLabel, Price, SelectionInfo, InfoRow, Label, Value, PageWrapper, LoadingWrapper, ErrorWrapper } from './ReservationStyle';
 import Calendar from 'components/Reservation/Calendar/Calendar';
 import Select from 'components/Reservation/Select/Select';
 import { Button } from 'components/CommonStyle';
@@ -21,11 +21,27 @@ function Reservation() {
     queryFn: () => GetInventoryProduct(uuid),
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>에러가 발생했습니다</div>;
-  if (!data?.data?.[0]) return <div>데이터를 찾을 수 없습니다</div>;
+  if (isLoading) return (
+    <LoadingWrapper>
+      데이터를 불러오는 중입니다...
+    </LoadingWrapper>
+  );
+  
+  if (error) return (
+    <ErrorWrapper>
+      죄송합니다. 오류가 발생했습니다.
+    </ErrorWrapper>
+  );
+  
+  if (!data?.data?.[0]) return (
+    <ErrorWrapper>
+      죄송합니다. 예매 정보를 찾을 수 없습니다.
+    </ErrorWrapper>
+  );
 
   const productData = data.data[0];
+  const startDate = new Date(productData.performStartDate).toLocaleDateString();
+  const endDate = new Date(productData.performEndDate).toLocaleDateString();
 
   const submitHandler = () => {
     // 예약 정보 전송하는 api 연결
@@ -65,7 +81,7 @@ function Reservation() {
     <PageWrapper>
       <Title>{productData.title}</Title>
       <SubInfo>
-        {productData.location} | {productData.performStartDate} ~ {productData.performEndDate}
+        {productData.location} | {startDate} ~ {endDate}
       </SubInfo>
       
       <ReservationBox>

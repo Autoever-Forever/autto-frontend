@@ -5,53 +5,113 @@ export const PageWrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 4rem 2rem;
+  background: linear-gradient(to bottom, #ffffff, #f8f9fa);
 `;
 
-export const Title = styled.div`
-  font-size: 2.5rem;
+export const Title = styled.h1`
+  font-size: 2.8rem;
   font-weight: 800;
   color: #1a1a1a;
   margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+  position: relative;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--main-blue);
+    border-radius: 2px;
+  }
 `;
 
-export const SubInfo = styled.div`
+export const SubInfo = styled.p`
   font-size: 1.1rem;
   color: #666;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  letter-spacing: -0.3px;
 `;
 
 export const ReservationBox = styled.div`
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 3rem;
   background: white;
   border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 `;
 
 export const ButtonBox = styled.div`
+  grid-column: 1 / -1;
   display: flex;
+  justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
-  justify-content: center;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+
+  button {
+    min-width: 200px;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    
+    &:first-child {
+      background: #f8f9fa;
+      color: #666;
+      border: 1px solid #ddd;
+
+      &:hover {
+        background: #eee;
+        transform: translateY(-2px);
+      }
+    }
+
+    &:last-child {
+      background: linear-gradient(135deg, var(--main-blue), #008891);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 173, 181, 0.3);
+
+      &:hover {
+        background: linear-gradient(135deg, #008891, var(--main-blue));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 173, 181, 0.4);
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
 `;
 
-export const Button = styled.button<{ primary?: boolean }>`
-  width: 200px;
-  padding: 1rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: ${({ primary }) => primary ? 'var(--main-blue)' : '#f5f5f5'};
-  color: ${({ primary }) => primary ? 'white' : '#666'};
+export const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: var(--main-blue);
+`;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: ${({ primary }) => 
-      primary ? '0 4px 12px rgba(0, 0, 0, 0.15)' : '0 4px 12px rgba(0, 0, 0, 0.05)'};
-  }
+export const ErrorWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: var(--text-red);
 `;

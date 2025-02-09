@@ -1,246 +1,893 @@
 export const mockProducts = [
   {
-    id: "1",
+    id: "product-001",
     title: "오페라의 유령",
-    posterUrl: "https://picsum.photos/300/400",
     location: "예술의전당",
-    performStartDate: "2024-03-01",
-    performEndDate: "2024-04-30",
     runningTime: "180분",
-    price: 120000,
-    ticketLimit: 4,
-    inventory: 50
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-02-01T10:00:00",
+    ticketingCloseDate: "2024-04-29T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/400",
+    posterUrl: "https://picsum.photos/600/800",
+    status: "ACTIVE"
   },
   {
-    id: "2",
+    id: "product-002",
     title: "레미제라블",
-    posterUrl: "https://picsum.photos/300/401",
     location: "블루스퀘어",
-    performStartDate: "2024-03-15",
-    performEndDate: "2024-05-15",
     runningTime: "165분",
-    price: 140000,
-    ticketLimit: 4,
-    inventory: 30
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-02-15T10:00:00",
+    ticketingCloseDate: "2024-05-14T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/401",
+    posterUrl: "https://picsum.photos/600/801",
+    status: "ACTIVE"
   },
   {
-    id: "3",
+    id: "product-003",
     title: "캣츠",
-    posterUrl: "https://picsum.photos/300/402",
     location: "샤롯데씨어터",
-    performStartDate: "2024-04-01",
-    performEndDate: "2024-06-30",
     runningTime: "150분",
-    price: 110000,
-    ticketLimit: 4,
-    inventory: 40
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-01T10:00:00",
+    ticketingCloseDate: "2024-06-29T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/402",
+    posterUrl: "https://picsum.photos/600/802",
+    status: "ACTIVE"
   },
   {
-    id: "4",
+    id: "product-004",
     title: "라이온 킹",
-    posterUrl: "https://picsum.photos/300/403",
     location: "디큐브아트센터",
-    performStartDate: "2024-03-20",
-    performEndDate: "2024-05-31",
     runningTime: "170분",
-    price: 130000,
-    ticketLimit: 4,
-    inventory: 45
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-01T10:00:00",
+    ticketingCloseDate: "2024-05-29T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/403",
+    posterUrl: "https://picsum.photos/600/803",
+    status: "ACTIVE"
   },
   {
-    id: "5",
+    id: "product-005",
     title: "지킬 앤 하이드",
-    posterUrl: "https://picsum.photos/300/404",
     location: "충무아트센터",
-    performStartDate: "2024-04-05",
-    performEndDate: "2024-06-15",
     runningTime: "160분",
-    price: 125000,
-    ticketLimit: 4,
-    inventory: 35
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-15T10:00:00",
+    ticketingCloseDate: "2024-06-14T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/404",
+    posterUrl: "https://picsum.photos/600/804",
+    status: "ACTIVE"
   },
   {
-    id: "6",
+    id: "product-006",
     title: "맘마미아",
-    posterUrl: "https://picsum.photos/300/405",
     location: "세종문화회관",
-    performStartDate: "2024-03-25",
-    performEndDate: "2024-05-30",
     runningTime: "155분",
-    price: 115000,
-    ticketLimit: 4,
-    inventory: 55
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-01T10:00:00",
+    ticketingCloseDate: "2024-05-29T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/405",
+    posterUrl: "https://picsum.photos/600/805",
+    status: "ACTIVE"
   },
   {
-    id: "7",
+    id: "product-007",
     title: "아이다",
-    posterUrl: "https://picsum.photos/300/406",
     location: "블루스퀘어",
-    performStartDate: "2024-04-10",
-    performEndDate: "2024-06-20",
     runningTime: "175분",
-    price: 135000,
-    ticketLimit: 4,
-    inventory: 42
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-15T10:00:00",
+    ticketingCloseDate: "2024-06-19T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/406",
+    posterUrl: "https://picsum.photos/600/806",
+    status: "ACTIVE"
   },
   {
-    id: "8",
+    id: "product-008",
     title: "시카고",
-    posterUrl: "https://picsum.photos/300/407",
     location: "샤롯데씨어터",
-    performStartDate: "2024-03-30",
-    performEndDate: "2024-05-25",
     runningTime: "145분",
-    price: 128000,
-    ticketLimit: 4,
-    inventory: 38
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-01T10:00:00",
+    ticketingCloseDate: "2024-05-24T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/407",
+    posterUrl: "https://picsum.photos/600/807",
+    status: "ACTIVE"
   },
   {
-    id: "9",
+    id: "product-009",
     title: "노트르담 드 파리",
-    posterUrl: "https://picsum.photos/300/408",
     location: "블루스퀘어",
-    performStartDate: "2024-04-15",
-    performEndDate: "2024-06-25",
     runningTime: "165분",
-    price: 132000,
-    ticketLimit: 4,
-    inventory: 48
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-15T10:00:00",
+    ticketingCloseDate: "2024-06-24T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/408",
+    posterUrl: "https://picsum.photos/600/808",
+    status: "ACTIVE"
   },
   {
-    id: "10",
+    id: "product-010",
     title: "웨스트 사이드 스토리",
-    posterUrl: "https://picsum.photos/300/409",
     location: "예술의전당",
-    performStartDate: "2024-05-01",
-    performEndDate: "2024-07-15",
     runningTime: "170분",
-    price: 138000,
-    ticketLimit: 4,
-    inventory: 52
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-04-01T10:00:00",
+    ticketingCloseDate: "2024-07-14T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/409",
+    posterUrl: "https://picsum.photos/600/809",
+    status: "ACTIVE"
   },
   {
-    id: "11",
+    id: "product-011",
     title: "드라큘라",
-    posterUrl: "https://picsum.photos/300/410",
     location: "충무아트센터",
-    performStartDate: "2024-04-20",
-    performEndDate: "2024-06-30",
     runningTime: "155분",
-    price: 125000,
-    ticketLimit: 4,
-    inventory: 45
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-20T10:00:00",
+    ticketingCloseDate: "2024-06-29T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/410",
+    posterUrl: "https://picsum.photos/600/810",
+    status: "ACTIVE"
   },
   {
-    id: "12",
+    id: "product-012",
     title: "모차르트!",
-    posterUrl: "https://picsum.photos/300/411",
     location: "샤롯데씨어터",
-    performStartDate: "2024-05-10",
-    performEndDate: "2024-07-20",
     runningTime: "160분",
-    price: 130000,
-    ticketLimit: 4,
-    inventory: 40
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-04-10T10:00:00",
+    ticketingCloseDate: "2024-07-19T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/411",
+    posterUrl: "https://picsum.photos/600/811",
+    status: "ACTIVE"
   },
   {
-    id: "13",
+    id: "product-013",
     title: "엘리자벳",
-    posterUrl: "https://picsum.photos/300/412",
     location: "블루스퀘어",
-    performStartDate: "2024-05-15",
-    performEndDate: "2024-07-30",
     runningTime: "175분",
-    price: 142000,
-    ticketLimit: 4,
-    inventory: 55
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-04-15T10:00:00",
+    ticketingCloseDate: "2024-07-29T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/412",
+    posterUrl: "https://picsum.photos/600/812",
+    status: "ACTIVE"
   },
   {
-    id: "14",
+    id: "product-014",
     title: "헤드윅",
-    posterUrl: "https://picsum.photos/300/413",
     location: "홍익대 대학로 아트센터",
-    performStartDate: "2024-04-25",
-    performEndDate: "2024-06-28",
     runningTime: "140분",
-    price: 118000,
-    ticketLimit: 4,
-    inventory: 35
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-03-25T10:00:00",
+    ticketingCloseDate: "2024-06-27T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/413",
+    posterUrl: "https://picsum.photos/600/813",
+    status: "ACTIVE"
   },
   {
-    id: "15",
+    id: "product-015",
     title: "스위니 토드",
-    posterUrl: "https://picsum.photos/300/414",
     location: "세종문화회관",
-    performStartDate: "2024-05-20",
-    performEndDate: "2024-07-25",
     runningTime: "165분",
-    price: 135000,
-    ticketLimit: 4,
-    inventory: 50
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-04-20T10:00:00",
+    ticketingCloseDate: "2024-07-24T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/414",
+    posterUrl: "https://picsum.photos/600/814",
+    status: "ACTIVE"
   },
   {
-    id: "16",
+    id: "product-016",
     title: "미스 사이공",
-    posterUrl: "https://picsum.photos/300/415",
     location: "예술의전당",
-    performStartDate: "2024-06-01",
-    performEndDate: "2024-08-15",
     runningTime: "180분",
-    price: 145000,
-    ticketLimit: 4,
-    inventory: 60
+    ticketingLimit: 4,
+    ticketingOpenDate: "2024-05-01T10:00:00",
+    ticketingCloseDate: "2024-08-14T23:59:59",
+    performStartDate: "2024-03-01T00:00:00",
+    performEndDate: "2024-03-03T00:00:00",
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    thumbnailUrl: "https://picsum.photos/300/415",
+    posterUrl: "https://picsum.photos/600/815",
+    status: "ACTIVE"
   }
 ];
 
+export const mockSeatInventory = {
+  "seat-001": {
+    id: "seat-001",
+    productId: "product-001",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-002": {
+    id: "seat-002",
+    productId: "product-001",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-003": {
+    id: "seat-003",
+    productId: "product-001",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-004": {
+    id: "seat-004",
+    productId: "product-002",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-005": {
+    id: "seat-005",
+    productId: "product-002",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-006": {
+    id: "seat-006",
+    productId: "product-002",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-007": {
+    id: "seat-007",
+    productId: "product-003",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-008": {
+    id: "seat-008",
+    productId: "product-003",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-009": {
+    id: "seat-009",
+    productId: "product-003",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-010": {
+    id: "seat-010",
+    productId: "product-004",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-011": {
+    id: "seat-011",
+    productId: "product-004",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-012": {
+    id: "seat-012",
+    productId: "product-004",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-013": {
+    id: "seat-013",
+    productId: "product-005",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-014": {
+    id: "seat-014",
+    productId: "product-005",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-015": {
+    id: "seat-015",
+    productId: "product-005",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-016": {
+    id: "seat-016",
+    productId: "product-006",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-017": {
+    id: "seat-017",
+    productId: "product-006",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-018": {
+    id: "seat-018",
+    productId: "product-006",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-019": {
+    id: "seat-019",
+    productId: "product-007",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-020": {
+    id: "seat-020",
+    productId: "product-007",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-021": {
+    id: "seat-021",
+    productId: "product-007",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-022": {
+    id: "seat-022",
+    productId: "product-008",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-023": {
+    id: "seat-023",
+    productId: "product-008",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-024": {
+    id: "seat-024",
+    productId: "product-008",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-025": {
+    id: "seat-025",
+    productId: "product-009",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-026": {
+    id: "seat-026",
+    productId: "product-009",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-027": {
+    id: "seat-027",
+    productId: "product-009",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-028": {
+    id: "seat-028",
+    productId: "product-010",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-029": {
+    id: "seat-029",
+    productId: "product-010",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-030": {
+    id: "seat-030",
+    productId: "product-010",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-031": {
+    id: "seat-031",
+    productId: "product-011",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-032": {
+    id: "seat-032",
+    productId: "product-011",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-033": {
+    id: "seat-033",
+    productId: "product-011",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-034": {
+    id: "seat-034",
+    productId: "product-012",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-035": {
+    id: "seat-035",
+    productId: "product-012",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-036": {
+    id: "seat-036",
+    productId: "product-012",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-037": {
+    id: "seat-037",
+    productId: "product-013",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-038": {
+    id: "seat-038",
+    productId: "product-013",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-039": {
+    id: "seat-039",
+    productId: "product-013",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-040": {
+    id: "seat-040",
+    productId: "product-014",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-041": {
+    id: "seat-041",
+    productId: "product-014",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-042": {
+    id: "seat-042",
+    productId: "product-014",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-043": {
+    id: "seat-043",
+    productId: "product-015",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-044": {
+    id: "seat-044",
+    productId: "product-015",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-045": {
+    id: "seat-045",
+    productId: "product-015",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-046": {
+    id: "seat-046",
+    productId: "product-016",
+    date: "2024-03-01T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 30,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-047": {
+    id: "seat-047",
+    productId: "product-016",
+    date: "2024-03-02T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 25,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  },
+  "seat-048": {
+    id: "seat-048",
+    productId: "product-016",
+    date: "2024-03-03T19:30:00",
+    price: 120000,
+    currencyCode: "KRW",
+    reservedSeats: 40,
+    totalSeats: 100,
+    createdDate: "2024-01-01T09:00:00",
+    lastUpdate: "2024-01-01T09:00:00",
+    status: "ACTIVE"
+  }
+};
+
 export const mockReservations = [
   {
-    reservationId: "R001",
-    createdDate: "2024-03-01T14:30:00",
-    ticketDate: "2024-03-15T19:30:00",
+    id: "R001",
+    productId: "product-001",
+    userId: "USER123",
+    createdAt: "2024-03-01T14:30:00",
+    reservationDate: "2024-03-15T19:30:00",
     status: "ACTIVE",
     title: "오페라의 유령",
-    thumbnailUrl: "https://picsum.photos/300/400",
+    posterUrl: "https://picsum.photos/300/400",
     seatCount: 2,
-    price: 240000
+    totalPrice: 240000,
+    paymentStatus: "PAID"
   },
   {
-    reservationId: "R002",
-    createdDate: "2024-03-02T11:20:00",
-    ticketDate: "2024-03-20T19:30:00",
+    id: "R002",
+    productId: "product-002",
+    userId: "USER123",
+    createdAt: "2024-03-02T11:20:00",
+    reservationDate: "2024-03-20T19:30:00",
     status: "CANCELLED",
     title: "레미제라블",
-    thumbnailUrl: "https://picsum.photos/300/401",
+    posterUrl: "https://picsum.photos/300/401",
     seatCount: 3,
-    price: 420000
+    totalPrice: 420000,
+    paymentStatus: "REFUNDED"
   },
   {
-    reservationId: "R003",
-    createdDate: "2024-03-03T15:45:00",
-    ticketDate: "2024-04-01T19:00:00",
+    id: "R003",
+    productId: "product-003",
+    userId: "USER123",
+    createdAt: "2024-03-03T15:45:00",
+    reservationDate: "2024-04-01T19:00:00",
     status: "ACTIVE",
     title: "캣츠",
-    thumbnailUrl: "https://picsum.photos/300/402",
+    posterUrl: "https://picsum.photos/300/402",
     seatCount: 2,
-    price: 220000
-  },
-  {
-    reservationId: "R004",
-    createdDate: "2024-03-04T10:15:00",
-    ticketDate: "2024-03-30T14:00:00",
-    status: "ACTIVE",
-    title: "시카고",
-    thumbnailUrl: "https://picsum.photos/300/407",
-    seatCount: 4,
-    price: 512000
+    totalPrice: 220000,
+    paymentStatus: "PAID"
   }
 ];
 
 export const mockUser = {
+  id: "USER123",
   email: "test@example.com",
   name: "테스트 사용자",
-  token: "mock-jwt-token-123456789",
-  accessToken: "mock-jwt-token-123456789"
+  role: "USER",
+  status: "ACTIVE",
+  createdAt: "2024-02-01T09:00:00",
+  updatedAt: "2024-02-01T09:00:00",
+  accessToken: "mock-jwt-token-123456789",
+  refreshToken: "mock-refresh-token-987654321"
 };
 
 export const mockReservationDetails = {
@@ -279,216 +926,5 @@ export const mockReservationDetails = {
     status: "ACTIVE",
     createdDate: "2024-03-03T15:45:00",
     posterUrl: "https://picsum.photos/300/402"
-  },
-  "R004": {
-    reservationId: "R004",
-    title: "시카고",
-    location: "샤롯데씨어터",
-    ticketDate: "2024-03-30T14:00:00",
-    price: 128000,
-    seatCount: 4,
-    seatsPrice: 512000,
-    status: "ACTIVE",
-    createdDate: "2024-03-04T10:15:00",
-    posterUrl: "https://picsum.photos/300/407"
-  }
-};
-
-export const mockInventory = {
-  "1": {
-    dates: [
-      {
-        date: "2024-03-15",
-        inventory: 50,
-        price: 120000,
-        seatId: "SEAT-1",
-        title: "오페라의 유령",
-        location: "예술의전당",
-        performStartDate: "2024-03-01",
-        performEndDate: "2024-04-30"
-      }
-    ]
-  },
-  "2": {
-    dates: [
-      {
-        date: "2024-03-20",
-        inventory: 30,
-        price: 140000,
-        seatId: "SEAT-2",
-        title: "레미제라블",
-        location: "블루스퀘어",
-        performStartDate: "2024-03-15",
-        performEndDate: "2024-05-15"
-      }
-    ]
-  },
-  "3": {
-    dates: [{
-      date: "2024-04-01",
-      inventory: 40,
-      price: 110000,
-      seatId: "SEAT-3",
-      title: "캣츠",
-      location: "샤롯데씨어터",
-      performStartDate: "2024-04-01",
-      performEndDate: "2024-06-30"
-    }]
-  },
-  "4": {
-    dates: [{
-      date: "2024-03-20",
-      inventory: 45,
-      price: 130000,
-      seatId: "SEAT-4",
-      title: "라이온 킹",
-      location: "디큐브아트센터",
-      performStartDate: "2024-03-20",
-      performEndDate: "2024-05-31"
-    }]
-  },
-  "5": {
-    dates: [{
-      date: "2024-04-05",
-      inventory: 35,
-      price: 125000,
-      seatId: "SEAT-5",
-      title: "지킬 앤 하이드",
-      location: "충무아트센터",
-      performStartDate: "2024-04-05",
-      performEndDate: "2024-06-15"
-    }]
-  },
-  "6": {
-    dates: [{
-      date: "2024-03-25",
-      inventory: 55,
-      price: 115000,
-      seatId: "SEAT-6",
-      title: "맘마미아",
-      location: "세종문화회관",
-      performStartDate: "2024-03-25",
-      performEndDate: "2024-05-30"
-    }]
-  },
-  "7": {
-    dates: [{
-      date: "2024-04-10",
-      inventory: 42,
-      price: 135000,
-      seatId: "SEAT-7",
-      title: "아이다",
-      location: "블루스퀘어",
-      performStartDate: "2024-04-10",
-      performEndDate: "2024-06-20"
-    }]
-  },
-  "8": {
-    dates: [{
-      date: "2024-03-30",
-      inventory: 38,
-      price: 128000,
-      seatId: "SEAT-8",
-      title: "시카고",
-      location: "샤롯데씨어터",
-      performStartDate: "2024-03-30",
-      performEndDate: "2024-05-25"
-    }]
-  },
-  "9": {
-    dates: [{
-      date: "2024-04-15",
-      inventory: 48,
-      price: 132000,
-      seatId: "SEAT-9",
-      title: "노트르담 드 파리",
-      location: "블루스퀘어",
-      performStartDate: "2024-04-15",
-      performEndDate: "2024-06-25"
-    }]
-  },
-  "10": {
-    dates: [{
-      date: "2024-05-01",
-      inventory: 52,
-      price: 138000,
-      seatId: "SEAT-10",
-      title: "웨스트 사이드 스토리",
-      location: "예술의전당",
-      performStartDate: "2024-05-01",
-      performEndDate: "2024-07-15"
-    }]
-  },
-  "11": {
-    dates: [{
-      date: "2024-04-20",
-      inventory: 45,
-      price: 125000,
-      seatId: "SEAT-11",
-      title: "드라큘라",
-      location: "충무아트센터",
-      performStartDate: "2024-04-20",
-      performEndDate: "2024-06-30"
-    }]
-  },
-  "12": {
-    dates: [{
-      date: "2024-05-10",
-      inventory: 40,
-      price: 130000,
-      seatId: "SEAT-12",
-      title: "모차르트!",
-      location: "샤롯데씨어터",
-      performStartDate: "2024-05-10",
-      performEndDate: "2024-07-20"
-    }]
-  },
-  "13": {
-    dates: [{
-      date: "2024-05-15",
-      inventory: 55,
-      price: 142000,
-      seatId: "SEAT-13",
-      title: "엘리자벳",
-      location: "블루스퀘어",
-      performStartDate: "2024-05-15",
-      performEndDate: "2024-07-30"
-    }]
-  },
-  "14": {
-    dates: [{
-      date: "2024-04-25",
-      inventory: 35,
-      price: 118000,
-      seatId: "SEAT-14",
-      title: "헤드윅",
-      location: "홍익대 대학로 아트센터",
-      performStartDate: "2024-04-25",
-      performEndDate: "2024-06-28"
-    }]
-  },
-  "15": {
-    dates: [{
-      date: "2024-05-20",
-      inventory: 50,
-      price: 135000,
-      seatId: "SEAT-15",
-      title: "스위니 토드",
-      location: "세종문화회관",
-      performStartDate: "2024-05-20",
-      performEndDate: "2024-07-25"
-    }]
-  },
-  "16": {
-    dates: [{
-      date: "2024-06-01",
-      inventory: 60,
-      price: 145000,
-      seatId: "SEAT-16",
-      title: "미스 사이공",
-      location: "예술의전당",
-      performStartDate: "2024-06-01",
-      performEndDate: "2024-08-15"
-    }]
   }
 };

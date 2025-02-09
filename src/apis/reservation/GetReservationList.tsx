@@ -4,8 +4,17 @@ import { axiosPrivate } from 'apis/productApi';
 export const GetReservation = async () => {
   // mockReservations가 존재하고 데이터가 있는 경우 Mock 데이터 사용
   if (mockReservations?.length > 0) {
+    const formattedReservations = mockReservations.map(reservation => ({
+      reservationId: reservation.id,
+      title: reservation.title,
+      createdDate: reservation.createdAt,
+      ticketDate: reservation.reservationDate,
+      status: reservation.status,
+      thumbnailUrl: reservation.posterUrl
+    }));
+
     return {
-      data: mockReservations
+      data: formattedReservations
     };
   }
 
