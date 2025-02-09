@@ -7,12 +7,12 @@ import {
   Label,
   SubTitle,
   Wrapper,
+  LogoText,
 } from './LoginFormStyle';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorText } from 'pages/User/Login/LoginStyle';
 import logo from 'assets/LogoText.svg';
 import { GetLogin } from 'apis/user/GetLogin';
-import useToken from 'states/Variable';
 import useInfo from 'states/Variable';
 
 function LoginForm() {
@@ -39,10 +39,21 @@ function LoginForm() {
 
     try {
       const res = await GetLogin(id, password);
-      setToken(res.data.accessToken);
-      setUserName(res.data.name);
-      setUserEmail(res.data.email);
-      navigate('/');
+      if (res.result) {
+        setToken(res.data.accessToken);
+        setUserName(res.data.name);
+        setUserEmail(res.data.email);
+
+        sessionStorage.setItem('token', res.data.accessToken);
+        sessionStorage.setItem('userName', res.data.name);
+        sessionStorage.setItem('userEmail', res.data.email);
+
+        setTimeout(() => {
+          navigate('/');
+        }, 100);
+      } else {
+        alert('로그인에 실패했습니다.');
+      }
     } catch (err) {
       return err;
     }
@@ -50,21 +61,24 @@ function LoginForm() {
 
   return (
     <Wrapper>
-      <img src={logo}></img>
+      <LogoText>Autto</LogoText>
       <SubTitle>
         만나서 반가워요! 멋진 공연이 기다리고 있어요.
         <br />
         로그인 후 다양한 공연을 관람해보세요!
       </SubTitle>
       <Form>
-        <Label>아이디</Label>
-        <Input placeholder="아이디" onChange={(e) => setId(e.target.value)} />
+        <Label>이메일</Label>
+        <Input 
+          placeholder="이메일을 입력해주세요" 
+          onChange={(e) => setId(e.target.value)}
+        />
         {available != undefined && !available ? (
           <ErrorText>이메일 형식에 맞는 아이디를 작성해주세요.</ErrorText>
         ) : null}
         <Label>비밀번호</Label>
         <Input
-          placeholder="비밀번호"
+          placeholder="비밀번호를 입력해주세요"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -72,10 +86,17 @@ function LoginForm() {
           <ErrorText>비밀번호를 입력해주세요.</ErrorText>
         ) : null}
         <ButtonWrapper>
-          <Link to="/signup">
-            <Button>회원가입</Button>
-          </Link>
           <Button onClick={() => checkAvailable()}>로그인</Button>
+          <Link to="/signup" style={{ width: '100%' }}>
+            <Button style={{ 
+              width: '100%',
+              backgroundColor: 'white',
+              color: 'var(--main-blue)',
+              border: '1px solid var(--main-blue)'
+            }}>
+              회원가입
+            </Button>
+          </Link>
         </ButtonWrapper>
       </Form>
     </Wrapper>

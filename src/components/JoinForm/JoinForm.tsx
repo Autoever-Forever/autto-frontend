@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CategoryWrapper, Input, Label, Form, Button } from './JoinFormStyle';
+import { CategoryWrapper, Input, Label, Form, Button, InputWrapper, ErrorMessage, SuccessMessage } from './JoinFormStyle';
 import { ErrorText, Wrapper } from 'components/CommonStyle';
 import { PostEmail } from 'apis/user/PostEmail';
 import { PostEmailCheck } from 'apis/user/PostEmailCheck';
@@ -9,6 +9,7 @@ import { userInfo } from 'os';
 import useInfo from 'states/Variable';
 import { useNavigate } from 'react-router-dom';
 import useProducts from 'states/useProducts';
+
 function JoinForm() {
   const naviagtor = useNavigate();
 
@@ -109,78 +110,86 @@ function JoinForm() {
       <Form onSubmit={submitHandler}>
         <CategoryWrapper>
           <Label>이름</Label>
-          <Input placeholder="이름" onChange={(e) => setName(e.target.value)} />
+          <Input 
+            placeholder="이름을 입력해주세요" 
+            onChange={(e) => setName(e.target.value)} 
+          />
         </CategoryWrapper>
+
         <CategoryWrapper>
           <Label>이메일</Label>
-          <Input
-            placeholder="test@test.com"
-            style={{ width: '50%' }}
-            onChange={(e) => {
-              setEmailId(e.target.value);
-            }}
-          />
-          <Button
-            type="button"
-            size="20%"
-            available={emailRegExp.test(emailId)}
-            onClick={sendCode}
-          >
-            인증하기
-          </Button>
+          <InputWrapper>
+            <Input
+              placeholder="example@email.com"
+              style={{ flex: 1 }}
+              onChange={(e) => setEmailId(e.target.value)}
+            />
+            <Button
+              type="button"
+              size="120px"
+              available={emailRegExp.test(emailId)}
+              onClick={sendCode}
+            >
+              인증코드 전송
+            </Button>
+          </InputWrapper>
         </CategoryWrapper>
 
         <CategoryWrapper>
           <Label>인증코드</Label>
-          <Input
-            placeholder="코드 입력"
-            style={{ width: '50%' }}
-            onChange={(e) => setEmailCode(e.target.value)}
-          />
-          <Button
-            type="button"
-            size="20%"
-            available={emailCode && emailCode.length > 0}
-            onClick={() => checkCode()}
-          >
-            인증
-          </Button>
+          <InputWrapper>
+            <Input
+              placeholder="인증코드 6자리"
+              style={{ flex: 1 }}
+              onChange={(e) => setEmailCode(e.target.value)}
+            />
+            <Button
+              type="button"
+              size="120px"
+              available={emailCode && emailCode.length > 0}
+              onClick={() => checkCode()}
+            >
+              확인
+            </Button>
+          </InputWrapper>
+          {emailAvailable && (
+            <SuccessMessage>이메일 인증이 완료되었습니다.</SuccessMessage>
+          )}
         </CategoryWrapper>
 
         <CategoryWrapper>
           <Label>비밀번호</Label>
           <Input
             type="password"
-            placeholder="비밀번호"
+            placeholder="비밀번호를 입력해주세요"
             onChange={(e) => setUserPassword(e.target.value)}
           />
         </CategoryWrapper>
+
         <CategoryWrapper>
           <Label>비밀번호 확인</Label>
-          <div style={{ width: '70%', justifyContent: 'flex-start' }}>
-            <Input
-              type="password"
-              placeholder="비밀번호 확인"
-              width="100%"
-              onChange={(e) => setUserPasswordCheck(e.target.value)}
-            />
-            {userPassword && userPassword != userPasswordCheck ? (
-              <ErrorText margin="10px">비밀번호가 일치하지 않습니다.</ErrorText>
-            ) : null}
-          </div>
+          <Input
+            type="password"
+            placeholder="비밀번호를 다시 입력해주세요"
+            onChange={(e) => setUserPasswordCheck(e.target.value)}
+          />
+          {userPassword && userPassword !== userPasswordCheck && (
+            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+          )}
         </CategoryWrapper>
 
         <Button
           type="button"
-          margin="5rem"
-          fontSize="1.5rem"
+          margin="2rem 0 0 0"
           padding="1rem"
+          fontSize="1rem"
           available={
             name &&
             emailId &&
             emailCode &&
+            emailAvailable &&
             userPassword &&
-            userPassword == userPasswordCheck
+            userPassword === userPasswordCheck
           }
           onClick={() => submitUser()}
         >
@@ -190,4 +199,5 @@ function JoinForm() {
     </Wrapper>
   );
 }
+
 export default JoinForm;

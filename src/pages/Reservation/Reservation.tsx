@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonBox, ReservationBox, SubInfo } from './ReservationStyle';
+import { ButtonBox, ReservationBox, SubInfo, ContentSection, PosterWrapper, Poster, InfoSection, Title, SectionTitle, PriceInfo, PriceLabel, Price, SelectionInfo, InfoRow, Label, Value, PageWrapper } from './ReservationStyle';
 import Calendar from 'components/Reservation/Calendar/Calendar';
 import Select from 'components/Reservation/Select/Select';
-import { Button, Title, Wrapper } from 'components/CommonStyle';
+import { Button } from 'components/CommonStyle';
 import { useQuery } from '@tanstack/react-query';
 import useProducts from 'states/useProducts';
 import { GetInventoryProduct } from 'apis/product/GetInventoryProduct';
@@ -16,14 +16,16 @@ function Reservation() {
   const [totalSelect, setTotalSelect] = useState(0);
   const [seatId, setSeatId] = useState('');
 
-  const { data } = useQuery({
-    queryKey: ['dates'],
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['dates', uuid],
     queryFn: () => GetInventoryProduct(uuid),
   });
 
-  useEffect(() => {
-    GetInventoryProduct(uuid);
-  }, []);
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!data?.data?.[0]) return <div>데이터를 찾을 수 없습니다</div>;
+
+  const productData = data.data[0];
 
   const submitHandler = () => {
     // 예약 정보 전송하는 api 연결
@@ -33,7 +35,7 @@ function Reservation() {
         console.log('post reservation', res);
 
         if (res) {
-          setTitle(data.data[0].title);
+          setTitle(productData.title);
           return setSeatCnt(totalSelect);
         }
       } catch (err) {
@@ -60,35 +62,27 @@ function Reservation() {
   };
 
   return (
-    <Wrapper>
-      {data ? (
-        <>
-          <Title text_align="start" width="80%">
-            {data.data[0].title}
-          </Title>
-          <SubInfo>
-            {data.data[0].location} |{' '}
-            {data.data[0].performStartDate.slice(0, 10)} ~
-            {data.data[0].performEndDate.slice(0, 10)}
-          </SubInfo>
-          <ReservationBox>
-            <Calendar />
-            <Select
-              totalSelect={totalSelect}
-              setTotalSelect={setTotalSelect}
-              seatId={seatId}
-              setSeatId={setSeatId}
-            />
-          </ReservationBox>
+    <PageWrapper>
+      <Title>{productData.title}</Title>
+      <SubInfo>
+        {productData.location} | {productData.performStartDate} ~ {productData.performEndDate}
+      </SubInfo>
+      
+      <ReservationBox>
+        <Calendar />
+        <Select
+          totalSelect={totalSelect}
+          setTotalSelect={setTotalSelect}
+          seatId={seatId}
+          setSeatId={setSeatId}
+        />
 
-          <ButtonBox>
-            <Button onClick={submitHandler} width="30%" status>
-              예약하기
-            </Button>
-          </ButtonBox>
-        </>
-      ) : null}
-    </Wrapper>
+        <ButtonBox>
+          <Button onClick={() => navigator(-1)}>뒤로가기</Button>
+          <Button primary onClick={submitHandler}>예매하기</Button>
+        </ButtonBox>
+      </ReservationBox>
+    </PageWrapper>
   );
 }
 

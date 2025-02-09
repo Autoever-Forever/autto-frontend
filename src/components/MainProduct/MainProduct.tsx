@@ -1,5 +1,5 @@
 import React from 'react';
-import { Poster, Text } from './MainProductStyle';
+import { Poster, Text, ProductCard, TitleWrapper, Location, Period } from './MainProductStyle';
 import poster from 'assets/poster.png';
 import logo from 'assets/Logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,24 +12,47 @@ interface MainProductProps {
   index: number;
   title: string;
   posterUrl?: string;
+  featured?: boolean;
+  disableLink?: boolean;
+  location: string;
+  performStartDate: string;
+  performEndDate: string;
 }
-function MainProduct({ uuid, index, title, posterUrl }: MainProductProps) {
+
+function MainProduct({ 
+  uuid, 
+  index, 
+  title, 
+  posterUrl, 
+  featured, 
+  disableLink,
+  location,
+  performStartDate,
+  performEndDate 
+}: MainProductProps) {
   const navigator = useNavigate();
   const { setUuid } = useProducts();
-
   const queryClient = new QueryClient();
 
   const onClick = () => {
-    // react-query 에 uuid 값 가져가기
+    if (disableLink) return;
     setUuid(uuid);
     navigator(`/product/${index}`);
   };
+
   return (
-    <Wrapper onClick={async () => await onClick()} width="25%" padding="10px">
-      <Poster src={posterUrl} alt="poster url" />
-      <Text>{title} </Text>
+    <ProductCard onClick={onClick} featured={featured}>
+      <Poster src={posterUrl} alt={title} className="poster" />
+      <TitleWrapper className="title-wrapper" featured={featured}>
+        <Text featured={featured}>{title}</Text>
+        <Location featured={featured}>{location}</Location>
+        <Period featured={featured}>
+          {performStartDate?.slice(0, 10)} - {performEndDate?.slice(0, 10)}
+        </Period>
+      </TitleWrapper>
       {/* <Text>초등학생 이상 관람가 </Text> */}
-    </Wrapper>
+    </ProductCard>
   );
 }
+
 export default MainProduct;
