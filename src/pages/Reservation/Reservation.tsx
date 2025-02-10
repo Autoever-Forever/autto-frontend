@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonBox, ReservationBox, SubInfo, ContentSection, PosterWrapper, Poster, InfoSection, Title, SectionTitle, PriceInfo, PriceLabel, Price, SelectionInfo, InfoRow, Label, Value, PageWrapper, LoadingWrapper, ErrorWrapper } from './ReservationStyle';
+import { ButtonBox, ReservationBox, SubInfo, Title, PageWrapper, LoadingWrapper, ErrorWrapper } from './ReservationStyle';
 import Calendar from 'components/Reservation/Calendar/Calendar';
 import Select from 'components/Reservation/Select/Select';
 import { Button } from 'components/CommonStyle';
@@ -95,7 +95,7 @@ function Reservation() {
 
         <ButtonBox>
           <Button onClick={() => navigator(-1)}>뒤로가기</Button>
-          <Button primary onClick={submitHandler}>예매하기</Button>
+          <Button onClick={submitHandler}>예매하기</Button>
         </ButtonBox>
       </ReservationBox>
     </PageWrapper>

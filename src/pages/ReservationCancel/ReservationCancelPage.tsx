@@ -6,14 +6,13 @@ import {
   LabelWrapper,
   Text,
 } from '../../components/DetailProduct/DetailProductStyle';
-import poster from 'assets/poster.png';
 import { Title, Button, Wrapper } from 'components/CommonStyle';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GetReservationCancel } from 'apis/reservation/GetReservationCancel';
 import { PostReservationCancel } from 'apis/reservation/PostReservationCancel';
 import useProducts from 'states/useProducts';
 
-function ReservationCacelPage() {
+function ReservationCancelPage() {
   const { reservationId } = useParams();
   const navigator = useNavigate();
   const [data, setData] = useState();
@@ -40,7 +39,7 @@ function ReservationCacelPage() {
       // 예매 취소 완료인 상태
       setSuccess('reservationCancel');
       setSeatCnt(data.seatCount);
-      return navigator('/success');
+      return navigator('/cancel-success');
     } else {
       return alert('예매를 취소하지 못했습니다. 다시 시도해주세요.');
     }
@@ -54,7 +53,7 @@ function ReservationCacelPage() {
             {data.title}
           </Title>
           <InfoWrapper>
-            <Poster src={poster} />
+            <Poster src={data.posterUrl} />
             <InfoBox>
               <LabelWrapper>
                 <Text width="30%">장소</Text>
@@ -108,4 +107,4 @@ function ReservationCacelPage() {
   );
 }
 
-export default ReservationCacelPage;
+export default ReservationCancelPage;

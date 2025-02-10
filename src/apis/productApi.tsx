@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseUrl = 'http://localhost:8082';
+export const baseUrl = '/products';
 
 export const instance = axios.create({
   baseURL: baseUrl,

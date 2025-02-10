@@ -8,7 +8,7 @@ export const PostSignUp = async (
   userPasswordcheck: string,
 ) => {
   try {
-    const res = await instance.post('auth/signup', {
+    const res = await instance.post('/signup', {
       name: name,
       email: emailId,
       verificationCode: emailCode,

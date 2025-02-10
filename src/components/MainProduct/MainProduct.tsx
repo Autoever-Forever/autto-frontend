@@ -1,7 +1,5 @@
 import React from 'react';
 import { Poster, Text, ProductCard, TitleWrapper, Location, Period } from './MainProductStyle';
-import poster from 'assets/poster.png';
-import logo from 'assets/Logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { RowWrapper, Wrapper } from 'components/CommonStyle';
 import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query';

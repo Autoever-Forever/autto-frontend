@@ -37,7 +37,7 @@ function DetailProduct() {
       }
     };
     GetDetail();
-  }, [uuid]);
+  }, []);
 
   const handleReservation = () => {
     if (!token) {

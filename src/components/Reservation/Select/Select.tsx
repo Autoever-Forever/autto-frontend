@@ -47,7 +47,7 @@ function Select({
     { value: 7, label: '7매' },
     { value: 8, label: '8매' },
     { value: 9, label: '9매' },
-    { value: 10, label: '10매' },
+    { value: 10, label: '10매' }
   ];
 
   useEffect(() => {

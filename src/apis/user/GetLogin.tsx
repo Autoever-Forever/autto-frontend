@@ -21,7 +21,7 @@ export const GetLogin = async (id: string, password: string) => {
 
   // 실제 로그인 API 호출
   try {
-    const res = await instance.post('auth/sign-in', {
+    const res = await instance.post('/sign-in', {
       email: id,
       password: password,
     });

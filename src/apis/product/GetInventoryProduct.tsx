@@ -26,7 +26,7 @@ export const GetInventoryProduct = async (uuid: string) => {
 
   // 실제 API 호출
   try {
-    const res = await axiosPrivate.get(`/products/inventory/${uuid}`);
+    const res = await axiosPrivate(`/info/inventory?id=${uuid}`);
     return res.data;
   } catch (err) {
     return err;

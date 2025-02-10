@@ -11,7 +11,6 @@ import {
 } from './LoginFormStyle';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorText } from 'pages/User/Login/LoginStyle';
-import logo from 'assets/LogoText.svg';
 import { GetLogin } from 'apis/user/GetLogin';
 import useInfo from 'states/Variable';
 
