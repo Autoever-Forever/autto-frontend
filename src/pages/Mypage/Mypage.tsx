@@ -35,7 +35,7 @@ function Mypage() {
                 ticketDate={data.ticketDate}
                 state={data.status}
                 title={data.title}
-                thumnailUrl={data.thumbnailUrl}
+                thumbnailUrl={data.thumbnailUrl}
               />
             );
           })}
