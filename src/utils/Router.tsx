@@ -9,7 +9,6 @@ import ReservationIndex from 'pages/Reservation/ReservationIndex';
 import MypageIndex from 'pages/Mypage/MyPageIndex';
 import RedirectIndex from 'pages/Redirect/RedirectIndex';
 import ReservationCancelIndex from 'pages/ReservationCancel/ReservationCancelIndex';
-import ReservationCancelRedirectPage from 'pages/Redirect/ReservationCancelRedirectPage';
 
 
 function Router() {
@@ -35,8 +34,6 @@ function Router() {
           path="/cancel/:reservationId"
           element={<ReservationCancelIndex />}
         />
-
-        <Route path="/cancel-success" element={<ReservationCancelRedirectPage />} />
 
       </Routes>
     </>

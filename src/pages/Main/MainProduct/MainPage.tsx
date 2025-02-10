@@ -2,7 +2,6 @@ import MainProduct from 'components/MainProduct/MainProduct';
 import React, { useEffect, useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { GetAllProduct } from 'apis/product/GetAllProduct';
-import { Title } from 'components/CommonStyle';
 import { LoadingSpinner } from 'components/MainProduct/MainProductStyle';
 import styled from 'styled-components';
 import FeaturedCarousel from 'components/MainProduct/FeaturedCarousel';

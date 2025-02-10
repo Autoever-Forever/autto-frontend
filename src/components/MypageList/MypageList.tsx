@@ -11,7 +11,6 @@ import {
   TextInfoBox,
 } from './MypageListStyle';
 import { Wrapper } from 'components/CommonStyle';
-import poster from 'assets/poster.png';
 import { useNavigate } from 'react-router-dom';
 interface MypageListProps {
   index: number;
@@ -20,7 +19,7 @@ interface MypageListProps {
   ticketDate: string;
   title: string;
   state: string;
-  thumnailUrl: string;
+  thumbnailUrl: string;
 }
 function MypageList({
   index,
@@ -29,7 +28,7 @@ function MypageList({
   title,
   ticketDate,
   state,
-  thumnailUrl,
+  thumbnailUrl,
 }: MypageListProps) {
   const navigator = useNavigate();
 
@@ -55,7 +54,7 @@ function MypageList({
         )}
       </ReservationNumberBox>
       <ReservationInfoBox>
-        <PosterImg src={thumnailUrl} />
+        <PosterImg src={thumbnailUrl} />
         <TextInfoBox>
           <ProductTitle>{title}</ProductTitle>
 

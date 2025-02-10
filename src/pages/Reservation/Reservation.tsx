@@ -19,31 +19,12 @@ function Reservation() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['dates', uuid],
     queryFn: () => GetInventoryProduct(uuid),
+    enabled: !!uuid,
   });
 
-  if (isLoading) return (
-    <LoadingWrapper>
-      데이터를 불러오는 중입니다...
-    </LoadingWrapper>
-  );
-  
-  if (error) return (
-    <ErrorWrapper>
-      죄송합니다. 오류가 발생했습니다.
-    </ErrorWrapper>
-  );
-  
-  if (!data?.data?.[0]) return (
-    <ErrorWrapper>
-      죄송합니다. 예매 정보를 찾을 수 없습니다.
-    </ErrorWrapper>
-  );
+  console.log('Reservation Query:', { data, isLoading, error, uuid });
 
-  const productData = data.data[0];
-  const startDate = new Date(productData.performStartDate).toLocaleDateString();
-  const endDate = new Date(productData.performEndDate).toLocaleDateString();
-
-  const submitHandler = () => {
+  const submitHandler = async () => {
     // 예약 정보 전송하는 api 연결
     const postMyReservation = async (reservationInfo: FormData) => {
       try {
@@ -51,7 +32,7 @@ function Reservation() {
         console.log('post reservation', res);
 
         if (res) {
-          setTitle(productData.title);
+          setTitle(data.data[0].title);
           return setSeatCnt(totalSelect);
         }
       } catch (err) {
@@ -76,6 +57,35 @@ function Reservation() {
       return err;
     }
   };
+
+  if (isLoading) {
+    return (
+      <LoadingWrapper>
+        데이터를 불러오는 중입니다...
+      </LoadingWrapper>
+    );
+  }
+
+  if (error) {
+    console.error('Reservation Error:', error);
+    return (
+      <ErrorWrapper>
+        죄송합니다. 오류가 발생했습니다.
+      </ErrorWrapper>
+    );
+  }
+
+  if (!data?.data?.[0]) {
+    return (
+      <ErrorWrapper>
+        죄송합니다. 예매 정보를 찾을 수 없습니다.
+      </ErrorWrapper>
+    );
+  }
+
+  const productData = data.data[0];
+  const startDate = new Date(productData.performStartDate).toLocaleDateString();
+  const endDate = new Date(productData.performEndDate).toLocaleDateString();
 
   return (
     <PageWrapper>

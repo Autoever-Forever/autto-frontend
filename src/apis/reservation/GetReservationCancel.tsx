@@ -1,23 +1,32 @@
 import { axiosPrivate } from "apis/productApi";
-import { mockReservationDetails } from "mocks/mockData";
+// import { mockReservationDetails } from "mocks/mockData";
 
 export const GetReservationCancel = async (reservationId: string) => {
   // 테스트 데이터 체크
-  const mockDetail = mockReservationDetails[reservationId];
-  if (mockDetail) {
-    return {
-      result: true,
-      data: mockDetail
-    };
-  }
+  // const mockDetail = mockReservationDetails[reservationId];
+  // if (mockDetail) {
+  //   return {
+  //     result: true,
+  //     data: mockDetail
+  //   };
+  // }
 
   // 실제 API 호출
   try {
     const res = await axiosPrivate.get(
       `/mypage/reservation/cancel/${reservationId}`,
     );
-    return res.data;
+    
+    if (!res.data || !res.data.data) {
+      return { data: null };
+    }
+
+    return {
+      result: true,
+      data: res.data.data
+    };
   } catch (err) {
-    return err;
+    console.error('예약 취소 조회 실패:', err);
+    throw new Error('예약 취소 정보를 불러오는데 실패했습니다.');
   }
 };

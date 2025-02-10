@@ -4,12 +4,18 @@ export const baseUrl = '/products';
 
 export const instance = axios.create({
   baseURL: baseUrl,
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  },
 });
 
 export const axiosPrivate = axios.create({
   baseURL: baseUrl,
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  },
 });
 
 axiosPrivate.interceptors.request.use(
