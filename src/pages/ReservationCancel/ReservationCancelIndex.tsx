@@ -1,8 +1,8 @@
 import React from 'react';
-import ReservationCacelPage from './ReservationCacelPage';
+import ReservationCancelPage from './ReservationCancelPage';
 
 function ReservationCancelIndex() {
-  return <ReservationCacelPage />;
+  return <ReservationCancelPage />;
 }
 
 export default ReservationCancelIndex;

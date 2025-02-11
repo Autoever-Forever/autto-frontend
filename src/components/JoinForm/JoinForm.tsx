@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CategoryWrapper, Input, Label, Form, Button } from './JoinFormStyle';
+import { CategoryWrapper, Input, Label, Form, Button, InputWrapper, ErrorMessage, SuccessMessage } from './JoinFormStyle';
 import { ErrorText, Wrapper } from 'components/CommonStyle';
 import { PostEmail } from 'apis/user/PostEmail';
 import { PostEmailCheck } from 'apis/user/PostEmailCheck';
@@ -9,6 +9,8 @@ import { userInfo } from 'os';
 import useInfo from 'states/Variable';
 import { useNavigate } from 'react-router-dom';
 import useProducts from 'states/useProducts';
+import { GetLogin } from 'apis/user/GetLogin';
+
 function JoinForm() {
   const naviagtor = useNavigate();
 
@@ -19,7 +21,7 @@ function JoinForm() {
   const [userPassword, setUserPassword] = useState<string>();
   const [userPasswordCheck, setUserPasswordCheck] = useState<string>();
 
-  const { setUserName, setUserEmail } = useInfo((state) => state);
+  const { setUserName, setUserEmail, setToken } = useInfo((state) => state);
   const { setSuccess } = useProducts();
   const formData = new FormData();
 
@@ -68,39 +70,30 @@ function JoinForm() {
     }
   };
 
-  const submitUser = async () => {
-    if (userPassword !== userPasswordCheck) {
-      return alert('비밀번호가 일치하지 않습니다.');
-    }
-    if (userPassword == null) {
-      return alert('비밀번호를 입력해주세요.');
-    }
-    if (!emailAvailable) {
-      return alert('이메일 코드 인증을 진행해주세요.');
-    }
-    if (!name) {
-      return alert('사용자 이름을 입력해주세요.');
-    }
-
+  const onSubmit = async (data: any) => {
     try {
       const res = await PostSignUp(
-        name,
-        emailId,
-        emailCode,
-        userPassword,
-        userPasswordCheck,
+        data.name,
+        data.emailId,
+        data.emailCode,
+        data.userPassword,
+        data.userPasswordCheck,
       );
 
       if (res.result) {
-        setUserName(res.data.name);
-        setUserEmail(res.data.email);
-        setSuccess('signUp');
-        naviagtor('/success');
-      } else {
-        return alert('회원가입에 실패하였습니다. 다시 진행해주세요.');
+        // 회원가입 성공 시 자동 로그인 처리
+        const loginRes = await GetLogin(data.emailId, data.userPassword);
+        if (loginRes.result) {
+          setToken(loginRes.data.accessToken);
+          setUserEmail(data.emailId);
+          setUserName(data.name);
+          setSuccess('signUp');
+          naviagtor('/signup-success');
+        }
       }
     } catch (err) {
-      return alert('회원가입에 실패하였습니다.' + err);
+      console.error(err);
+      alert('회원가입에 실패했습니다.');
     }
   };
 
@@ -109,80 +102,88 @@ function JoinForm() {
       <Form onSubmit={submitHandler}>
         <CategoryWrapper>
           <Label>이름</Label>
-          <Input placeholder="이름" onChange={(e) => setName(e.target.value)} />
+          <Input 
+            placeholder="이름을 입력해주세요" 
+            onChange={(e) => setName(e.target.value)} 
+          />
         </CategoryWrapper>
+
         <CategoryWrapper>
           <Label>이메일</Label>
-          <Input
-            placeholder="test@test.com"
-            style={{ width: '50%' }}
-            onChange={(e) => {
-              setEmailId(e.target.value);
-            }}
-          />
-          <Button
-            type="button"
-            size="20%"
-            available={emailRegExp.test(emailId)}
-            onClick={sendCode}
-          >
-            인증하기
-          </Button>
+          <InputWrapper>
+            <Input
+              placeholder="example@email.com"
+              style={{ flex: 1 }}
+              onChange={(e) => setEmailId(e.target.value)}
+            />
+            <Button
+              type="button"
+              size="120px"
+              available={emailRegExp.test(emailId)}
+              onClick={sendCode}
+            >
+              인증코드 전송
+            </Button>
+          </InputWrapper>
         </CategoryWrapper>
 
         <CategoryWrapper>
           <Label>인증코드</Label>
-          <Input
-            placeholder="코드 입력"
-            style={{ width: '50%' }}
-            onChange={(e) => setEmailCode(e.target.value)}
-          />
-          <Button
-            type="button"
-            size="20%"
-            available={emailCode && emailCode.length > 0}
-            onClick={() => checkCode()}
-          >
-            인증
-          </Button>
+          <InputWrapper>
+            <Input
+              placeholder="인증코드 6자리"
+              style={{ flex: 1 }}
+              onChange={(e) => setEmailCode(e.target.value)}
+            />
+            <Button
+              type="button"
+              size="120px"
+              available={emailCode && emailCode.length > 0}
+              onClick={() => checkCode()}
+            >
+              확인
+            </Button>
+          </InputWrapper>
+          {emailAvailable && (
+            <SuccessMessage>이메일 인증이 완료되었습니다.</SuccessMessage>
+          )}
         </CategoryWrapper>
 
         <CategoryWrapper>
           <Label>비밀번호</Label>
           <Input
             type="password"
-            placeholder="비밀번호"
+            placeholder="비밀번호를 입력해주세요"
             onChange={(e) => setUserPassword(e.target.value)}
           />
         </CategoryWrapper>
+
         <CategoryWrapper>
           <Label>비밀번호 확인</Label>
-          <div style={{ width: '70%', justifyContent: 'flex-start' }}>
-            <Input
-              type="password"
-              placeholder="비밀번호 확인"
-              width="100%"
-              onChange={(e) => setUserPasswordCheck(e.target.value)}
-            />
-            {userPassword && userPassword != userPasswordCheck ? (
-              <ErrorText margin="10px">비밀번호가 일치하지 않습니다.</ErrorText>
-            ) : null}
-          </div>
+          <Input
+            type="password"
+            placeholder="비밀번호를 다시 입력해주세요"
+            onChange={(e) => setUserPasswordCheck(e.target.value)}
+          />
+          {userPassword && userPassword !== userPasswordCheck && (
+            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+          )}
         </CategoryWrapper>
 
         <Button
           type="button"
-          margin="5rem"
-          fontSize="1.5rem"
+          margin="2rem 0 0 0"
           padding="1rem"
+          fontSize="1rem"
           available={
             name &&
             emailId &&
             emailCode &&
+            emailAvailable &&
             userPassword &&
-            userPassword == userPasswordCheck
+            userPassword === userPasswordCheck
           }
-          onClick={() => submitUser()}
+          onClick={() => onSubmit({ name, emailId, emailCode, userPassword, userPasswordCheck })}
         >
           회원가입
         </Button>
@@ -190,4 +191,5 @@ function JoinForm() {
     </Wrapper>
   );
 }
+
 export default JoinForm;

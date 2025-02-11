@@ -28,12 +28,13 @@ function Router() {
 
         <Route path="/mypage" element={<MypageIndex />} />
 
-        <Route path="/success" element={<RedirectIndex />} />
+        <Route path="/success" element={<RedirectIndex type="reservation" />} />
+
+        <Route path="/cancel-success" element={<RedirectIndex type="cancel" />} />
         
-        <Route
-          path="/cancel/:reservationId"
-          element={<ReservationCancelIndex />}
-        />
+        <Route path="/signup-success" element={<RedirectIndex type="signup" />} />
+        
+        <Route path="/cancel/:reservationId" element={<ReservationCancelIndex />} />
 
       </Routes>
     </>
