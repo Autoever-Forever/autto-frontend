@@ -29,11 +29,14 @@ export const GetAllProduct = async ({ pageParam = 0 }) => {
       return null;
     }
     
-    // API 응답 구조에 맞게 변환
+    // API 응답 구조에 맞게 변환하고 필요한 정보 추가
     const products = res.data.data.map((item: any) => ({
       id: item.id,
       title: item.title,
-      posterUrl: item.posterUrl
+      posterUrl: item.posterUrl,
+      location: item.location,                    // 장소 정보 추가
+      performStartDate: item.performStartDate,    // 공연 시작일 추가
+      performEndDate: item.performEndDate         // 공연 종료일 추가
     }));
 
     return {

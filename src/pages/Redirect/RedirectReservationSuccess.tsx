@@ -4,16 +4,16 @@ import React from 'react';
 import useProducts from 'states/useProducts';
 import { useNavigate } from 'react-router-dom';
 
-function ReservationCancelRedirectPage() {
-  const { title, seatCnt } = useProducts();
+function RedirectReservationSuccess() {
+  const { success, title, seatCnt } = useProducts();
   const navigator = useNavigate();
 
   return (
     <Wrapper>
-      <Title>예매 취소가 완료되었습니다</Title>
+      <Title>예매가 완료되었습니다</Title>
       <SubTitle>
-        예매하신 내용이 성공적으로 취소되었습니다.<br />
-        예매 내역은 마이페이지에서도 확인하실 수 있습니다.
+        예매하신 내용을 확인해주세요<br />
+        예매 내역은 마이페이지에서도 확인하실 수 있습니다
       </SubTitle>
 
       <InfoBox>
@@ -22,12 +22,12 @@ function ReservationCancelRedirectPage() {
           <Text>{title}</Text>
         </LineBox>
         <LineBox>
-          <Text weight="600">취소 매수</Text>
+          <Text weight="600">예매 매수</Text>
           <Text>{seatCnt}매</Text>
         </LineBox>
         <LineBox>
-          <Text weight="600">취소 상태</Text>
-          <Text>예매 취소 완료</Text>
+          <Text weight="600">예매 상태</Text>
+          <Text>예매 완료</Text>
         </LineBox>
       </InfoBox>
 
@@ -39,4 +39,4 @@ function ReservationCancelRedirectPage() {
   );
 }
 
-export default ReservationCancelRedirectPage; 
+export default RedirectReservationSuccess;

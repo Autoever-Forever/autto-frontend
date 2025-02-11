@@ -14,33 +14,39 @@ import { Wrapper } from 'components/CommonStyle';
 import { useNavigate } from 'react-router-dom';
 interface MypageListProps {
   index: number;
-  reservationNumber: string;
-  createDate: string;
+  reservationId: string;
+  createdDate: string;
   ticketDate: string;
   title: string;
-  state: string;
+  status: string;
   thumbnailUrl: string;
 }
 function MypageList({
   index,
-  reservationNumber,
-  createDate,
+  reservationId,
+  createdDate,
   title,
   ticketDate,
-  state,
+  status,
   thumbnailUrl,
 }: MypageListProps) {
   const navigator = useNavigate();
 
+  const formattedCreateDate = createdDate?.slice(0, 10) || '-';
+  const formattedTicketDate = ticketDate?.slice(0, 10) || '-';
+  const formattedTicketTime = ticketDate
+    ? `${ticketDate.slice(11, 13)}시 ${ticketDate.slice(14, 16)}분`
+    : '-';
+
   return (
     <Wrapper style={{ width: '80%' }}>
       <ReservationNumberBox index={index}>
-        <ReservationNumber>예매번호 : {reservationNumber}</ReservationNumber>
-        {state === 'ACTIVE' ? (
+        <ReservationNumber>예매번호 : {reservationId}</ReservationNumber>
+        {status === 'ACTIVE' ? (
           <ReservationNumber
             color="var(--text-blue)"
             style={{ textAlign: 'right', cursor: 'pointer' }}
-            onClick={() => navigator(`/cancel/${reservationNumber}`)}
+            onClick={() => navigator(`/cancel/${reservationId}`)}
           >
             예매 취소 &gt;
           </ReservationNumber>
@@ -60,25 +66,23 @@ function MypageList({
 
           <InfoLineBox>
             <SubTitle>예매 일자 : &nbsp;</SubTitle>
-            <SubTitle color="black">{createDate.slice(0, 10)}</SubTitle>
+            <SubTitle color="black">{formattedCreateDate}</SubTitle>
           </InfoLineBox>
 
           <InfoLineBox>
             <SubTitle>공연 일자 : &nbsp;</SubTitle>
-            <SubTitle color="black">{ticketDate.slice(0, 10)}</SubTitle>
+            <SubTitle color="black">{formattedTicketDate}</SubTitle>
           </InfoLineBox>
 
           <InfoLineBox>
             <SubTitle>공연 시간 : &nbsp;</SubTitle>
-            <SubTitle color="black">
-              {ticketDate.slice(11, 13)}시 {ticketDate.slice(14, 16)}분
-            </SubTitle>
+            <SubTitle color="black">{formattedTicketTime}</SubTitle>
           </InfoLineBox>
 
           {/* <InfoLineBox>
             <SubTitle>예매 상태 : &nbsp;</SubTitle>
-            <StateBox as="span" now={state == 'ACTIVE'}>
-              {state == 'ACTIVE' ? '예매 완료' : '취소 완료'}
+            <StateBox as="span" now={status == 'ACTIVE'}>
+              {status == 'ACTIVE' ? '예매 완료' : '취소 완료'}
             </StateBox>
           </InfoLineBox> */}
         </TextInfoBox>

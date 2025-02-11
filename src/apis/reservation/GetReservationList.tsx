@@ -26,13 +26,14 @@ export const GetReservation = async () => {
       return { data: [] };
     }
 
+    // API 응답 데이터를 올바른 속성 이름으로 매핑
     const formattedReservations = res.data.data.map((reservation: any) => ({
-      reservationId: reservation.id,
+      reservationId: reservation.reservationId,
       title: reservation.title,
-      createdDate: reservation.createdAt,
-      ticketDate: reservation.reservationDate,
+      createdDate: reservation.createdDate,
+      ticketDate: reservation.ticketDate,
       status: reservation.status,
-      thumbnailUrl: reservation.posterUrl
+      thumbnailUrl: reservation.thumbnailUrl
     }));
 
     return {

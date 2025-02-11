@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseUrl = '/api';
+export const baseUrl = 'http://54.180.239.207:8083/api';
 
 export const axiosPrivate = axios.create({
   baseURL: baseUrl,
