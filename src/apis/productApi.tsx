@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseUrl = 'http://54.180.239.207:8082/products';
+export const baseUrl = '/products';
 
 export const instance = axios.create({
   baseURL: baseUrl,
