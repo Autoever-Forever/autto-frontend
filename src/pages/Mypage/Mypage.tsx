@@ -30,12 +30,12 @@ function Mypage() {
               <MypageList
                 key={ind}
                 index={ind}
-                reservationNumber={data.reservationId}
-                createDate={data.createdDate}
+                reservationId={data.reservationId}
+                createdDate={data.createdDate}
                 ticketDate={data.ticketDate}
-                state={data.status}
+                status={data.status}
                 title={data.title}
-                thumnailUrl={data.thumbnailUrl}
+                thumbnailUrl={data.thumbnailUrl}
               />
             );
           })}

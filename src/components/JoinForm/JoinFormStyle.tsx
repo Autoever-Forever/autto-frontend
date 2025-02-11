@@ -14,45 +14,89 @@ interface InputProps {
 }
 
 export const Form = styled.form`
-  border: none;
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  max-width: 500px;
   width: 100%;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 `;
+
 export const CategoryWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0.5rem;
-  border-bottom: solid 1px black;
+  margin-bottom: 1.5rem;
 `;
+
 export const Label = styled.label`
-  font-size: 1rem;
-  font-weight: bold;
-  width: 30%;
-  text-align: left;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.5rem;
 `;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+`;
+
 export const Input = styled.input<InputProps>`
-  border: none;
-  padding: 10px;
-  font-size: 1rem;
-  width: ${({ width }) => (width ? width : '70%')};
-  margin: 0.5rem;
-  margin-left: ${(width) => (width ? 0 : null)};
+  width: ${({ width }) => width || '100%'};
+  padding: 0.875rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f8f9fa;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--main-blue);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 173, 181, 0.1);
+  }
+
+  &::placeholder {
+    color: #adb5bd;
+  }
 `;
+
 export const Button = styled.button<ButtonProps>`
-  font-size: ${({ fontSize }) => (fontSize ? fontSize : '1rem')};
-  color: ${({ available }) => (available ? 'white' : 'black')};
-  font-weight: bold;
+  width: ${({ size }) => size || '100%'};
+  padding: ${({ padding }) => padding || '0.875rem 1rem'};
+  font-size: ${({ fontSize }) => fontSize || '0.95rem'};
+  font-weight: 500;
+  color: ${({ available }) => (available ? 'white' : '#adb5bd')};
   background-color: ${({ available }) =>
-    available ? 'var(--main-blue)' : 'var(--bg-grey)'};
-  border-radius: 10px;
-  padding: ${({ padding }) => (padding ? padding : '10px')};
+    available ? 'var(--main-blue)' : '#f1f3f5'};
   border: none;
-  width: ${({ size }) => (size ? size : '100%')};
-  margin-top: ${({ margin }) => (margin ? margin : 0)};
-  cursor: pointer;
+  border-radius: 8px;
+  cursor: ${({ available }) => (available ? 'pointer' : 'not-allowed')};
+  transition: all 0.2s ease;
+  margin-top: ${({ margin }) => margin || '0'};
+
+  ${({ available }) =>
+    available &&
+    `
+    &:hover {
+      background-color: #0056b3;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  `}
+`;
+
+export const ErrorMessage = styled.div`
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+`;
+
+export const SuccessMessage = styled.div`
+  color: var(--main-blue);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 `;

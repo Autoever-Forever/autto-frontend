@@ -5,7 +5,7 @@ export const PostSignUp = async (
   emailId: string,
   emailCode: string,
   userPassword: string,
-  userPasswordcheck: string,
+  userPasswordCheck: string,
 ) => {
   try {
     const res = await instance.post('/signup', {
@@ -13,11 +13,19 @@ export const PostSignUp = async (
       email: emailId,
       verificationCode: emailCode,
       userPw: userPassword,
-      confirmPassword: userPasswordcheck,
+      confirmPassword: userPasswordCheck,
     });
 
-    return res.data;
+    if (!res.data) {
+      throw new Error('회원가입에 실패했습니다.');
+    }
+
+    return {
+      result: true,
+      data: res.data.data
+    };
   } catch (err) {
-    return err;
+    console.error('회원가입 실패:', err);
+    throw new Error('회원가입에 실패했습니다.');
   }
 };

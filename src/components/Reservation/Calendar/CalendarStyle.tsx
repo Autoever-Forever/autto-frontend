@@ -1,89 +1,70 @@
-import Calendar from 'react-calendar';
 import styled from 'styled-components';
 
-export const Box = styled.div`
-  border-right: solid 1px black;
-  padding: 5% 0;
-  width: 50%;
+interface DateTextProps {
+  selected?: boolean;
+  available?: boolean;
+  day?: number;
+  empty?: boolean;
+}
+
+export const CalendarBox = styled.div`
+  width: 100%;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: white;
 `;
 
 export const Title = styled.div`
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+`;
+
+export const DayBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+
+export const DayText = styled.div`
+  color: var(--text-grey);
+  font-size: 0.9rem;
+`;
+
+export const DateBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+`;
+
+export const MonthText = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
-  text-align: left;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--text-black);
 `;
-export const CustomCalendar = styled(Calendar)`
-  width: 80%;
 
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const DateText = styled.div<DateTextProps>`
+  padding: 0.5rem;
+  text-align: center;
+  cursor: ${({ available, empty }) => (available && !empty ? 'pointer' : 'default')};
+  border-radius: 5px;
+  color: ${({ available, day, empty }) => {
+    if (empty) return 'transparent';
+    if (!available) return 'var(--text-grey)';
+    if (day === 0) return 'var(--text-red)';  // 일요일
+    if (day === 6) return 'var(--text-blue)';  // 토요일
+    return 'var(--text-black)';
+  }};
+  background-color: ${({ selected, available }) =>
+    selected && available ? 'var(--main-blue)' : 'transparent'};
+  color: ${({ selected, available }) =>
+    selected && available ? 'white' : undefined};
 
-  .react-calendar__navigation {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border-bottom: solid 1px var(--text-grey);
-    width: 90%;
-    align-items: center;
-    padding-bottom: 3%;
-    margin-bottom: 3%;
-    .react-calendar__navigation__arrow {
-      background-color: white;
-      border: none;
-      font-size: 3rem;
-    }
-  }
-  .react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
-    display: none;
-  }
-  .react-calendar__navigation__arrow.react-calendar__navigation__next2-button {
-    display: none;
-  }
-  .react-calendar__navigation__label {
-    font-size: 1.5rem;
-    background-color: white;
-    border: none;
-  }
-  .react-calendar__month-view__weekdays {
-    text-align: center;
-    font-size: 1rem;
-    abbr {
-      text-decoration: none;
-    }
-    .react-calendar__month-view__weekdays__weekday {
-      padding: 3px 0;
-    }
-  }
-  .react-calendar__tile {
-    background-color: white;
-    border: none;
-    font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    padding: 1rem;
-  }
-  /* 저번 달 & 다음 달 일자 */
-  .react-calendar__month-view__days__day--neighboringMonth {
-    color: var(--blue-gray-400, #ced4da);
-    font-size: 1rem;
-    background-color: none;
-  }
-  /* 선택된 날짜의 배경색 변경 */
-  .react-calendar__tile--active {
-    color: white;
-    font-size: 1rem;
-    border-radius: 50px;
-    background-color: var(--bg-mint);
-  }
-  .react-calendar__tile--active:enabled {
-    color: white;
-    font-size: 1rem;
-    border-radius: 50px;
-    background: var(--bg-mint);
+  &:hover {
+    background-color: ${({ available, empty }) =>
+      available && !empty ? 'var(--bg-mint)' : 'transparent'};
   }
 `;
