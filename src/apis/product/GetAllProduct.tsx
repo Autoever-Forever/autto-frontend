@@ -19,11 +19,19 @@ export const GetAllProduct = async ({ pageParam = 0 }) => {
       performStartDate: item.performStartDate,    // 공연 시작일 추가
       performEndDate: item.performEndDate         // 공연 종료일 추가
     }));
+    // 페이지당 4개씩 보여주기
+    const pageSize = 4;
+    const start = pageParam * pageSize;
+    const end = start + pageSize;
+    const pageData = products.slice(start, end);
+
+    // 다음 페이지가 있는지 확인
+    const hasMore = end < products.length;
 
     return {
-      data: products,
-      nextCursor: products.length === 4 ? pageParam + 1 : undefined,
-      hasMore: products.length === 4
+      data: pageData,
+      nextCursor: hasMore ? pageParam + 1 : undefined,
+      hasMore
     };
   } catch (err) {
     console.error('상품 목록 조회 실패:', err);
