@@ -3,11 +3,16 @@ import { instance } from 'apis/productApi';
 // 상품 전체 목록 조회
 export const GetAllProduct = async ({ pageParam = 0 }) => {
   try {
+    console.log('Fetching page:', pageParam); // 디버깅용
     const res = await instance.get(`/info/?pageNum=${pageParam}`);
 
     if (!res.data || !res.data.data) {
-      alert('더이상의 데이터는 없습니다.');
-      return null;
+      console.log('No data received'); // 디버깅용
+      return {
+        data: [],
+        nextCursor: undefined,
+        hasMore: false
+      };
     }
 
     // API 응답 구조에 맞게 변환하고 필요한 정보 추가
@@ -15,21 +20,18 @@ export const GetAllProduct = async ({ pageParam = 0 }) => {
       id: item.id,
       title: item.title,
       posterUrl: item.posterUrl,
-      location: item.location,                    // 장소 정보 추가
-      performStartDate: item.performStartDate,    // 공연 시작일 추가
-      performEndDate: item.performEndDate         // 공연 종료일 추가
+      location: item.location,
+      performStartDate: item.performStartDate,
+      performEndDate: item.performEndDate
     }));
-    // 페이지당 4개씩 보여주기
-    const pageSize = 4;
-    const start = pageParam * pageSize;
-    const end = start + pageSize;
-    const pageData = products.slice(start, end);
 
-    // 다음 페이지가 있는지 확인
-    const hasMore = end < products.length;
+    console.log('Received products:', products.length); // 디버깅용
+
+    // 데이터가 있으면 항상 다음 페이지가 있다고 가정
+    const hasMore = products.length > 0;
 
     return {
-      data: pageData,
+      data: products,
       nextCursor: hasMore ? pageParam + 1 : undefined,
       hasMore
     };
