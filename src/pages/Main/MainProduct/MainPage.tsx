@@ -50,44 +50,48 @@ function MainPage() {
     queryKey: ['products'],
     queryFn: GetAllProduct,
     getNextPageParam: (lastPage) => {
-      if (!lastPage.hasMore) return undefined;
+      if (!lastPage?.hasMore) return undefined;
       return lastPage.nextCursor;
     },
-    initialPageParam: 0
+    initialPageParam: 0,
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+      (entries) => {
+        const firstEntry = entries[0];
+        if (firstEntry.isIntersecting && hasNextPage && !isFetching) {
+          console.log('Intersection detected, hasNextPage:', hasNextPage, 'isFetching:', isFetching);
           fetchNextPage();
         }
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1, 
+        rootMargin: '200px'
+      }
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+    const currentObserverRef = observerRef.current;
+    if (currentObserverRef) {
+      observer.observe(currentObserverRef);
+      console.log('Observer attached to:', currentObserverRef);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      if (currentObserverRef) {
+        observer.disconnect();
+      }
+    };
   }, [fetchNextPage, hasNextPage, isFetching]);
 
-  if (isLoading) return (
-    <LoadingSpinner>
-      로딩 중...
-    </LoadingSpinner>
-  );
+  if (isLoading) return <LoadingSpinner>로딩 중...</LoadingSpinner>;
+  if (isError) return <LoadingSpinner>에러가 발생했습니다: {error.message}</LoadingSpinner>;
 
-  if (isError) return (
-    <LoadingSpinner>
-      에러가 발생했습니다: {error.message}
-    </LoadingSpinner>
-  );
-
-  const products = data?.pages.flatMap(page => page.data) ?? [];
-  const featuredShows = products.slice(0, 4);
-  const remainingShows = products.slice(4);
+  const allProducts = data?.pages.flatMap(page => page?.data || []) ?? [];
+  const featuredShows = allProducts.slice(0, 4);
+  const remainingShows = allProducts.slice(4);
 
   return (
     <PageContainer>
@@ -102,7 +106,7 @@ function MainPage() {
       <AllShowsSection>
         <AllShowsHeader>
           <AllShowsTitle>전체 공연</AllShowsTitle>
-          <ShowCount>총 {products.length}개의 공연</ShowCount>
+          <ShowCount>총 {allProducts.length}개의 공연</ShowCount>
         </AllShowsHeader>
         <ShowsGrid>
           {remainingShows.map((product, index) => (
@@ -132,11 +136,8 @@ function MainPage() {
           margin: '2rem 0'
         }}
       >
-        {isFetching && (
-          <LoadingSpinner>
-            더 많은 공연 불러오는 중...
-          </LoadingSpinner>
-        )}
+        {isFetching && <LoadingSpinner>더 많은 공연 불러오는 중...</LoadingSpinner>}
+        {!hasNextPage && <p>더 이상 공연이 없습니다.</p>}
       </div>
     </PageContainer>
   );
