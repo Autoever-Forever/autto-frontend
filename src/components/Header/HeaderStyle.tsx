@@ -30,7 +30,7 @@ export const LogoWrapper = styled.div`
 `;
 
 export const MainLogo = styled.img`
-  width: 10%;
+  width: 5rem;
   margin: 10px;
 `;
 
