@@ -29,11 +29,8 @@ export const LogoWrapper = styled.div`
   }
 `;
 
-export const LogoText = styled.h1`
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--main-blue);
-  font-family: 'Poppins', sans-serif;
+export const MainLogo = styled.img`
+  height: 80%;
 `;
 
 export const UserSection = styled.div`

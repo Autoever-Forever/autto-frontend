@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 
-export const LogoText = styled.h1`
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--main-blue);
-  margin: 2rem 0 1rem 0;
-  letter-spacing: -1px;
-  font-family: 'Poppins', sans-serif;
+export const MainLogo = styled.img`
+  text-align: center;
+  width:40%;
 `;
 
 export const Wrapper = styled.div`

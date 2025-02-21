@@ -7,12 +7,13 @@ import {
   Label,
   SubTitle,
   Wrapper,
-  LogoText,
+  MainLogo,
 } from './LoginFormStyle';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorText } from 'pages/User/Login/LoginStyle';
 import { GetLogin } from 'apis/user/GetLogin';
 import useInfo from 'states/Variable';
+import logo from 'assets/autto_logo.svg'
 
 function LoginForm() {
   const [id, setId] = useState<string>();
@@ -60,7 +61,7 @@ function LoginForm() {
 
   return (
     <Wrapper>
-      <LogoText>Autto</LogoText>
+      <MainLogo src={logo}/>
       <SubTitle>
         만나서 반가워요! 멋진 공연이 기다리고 있어요.
         <br />

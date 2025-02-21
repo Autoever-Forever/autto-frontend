@@ -3,7 +3,7 @@ import {
   HeaderContainer,
   Wrapper, 
   LogoWrapper,
-  LogoText,
+  MainLogo,
   UserSection,
   UserInfo,
   AuthButton,
@@ -11,6 +11,7 @@ import {
 } from './HeaderStyle';
 import { useNavigate } from 'react-router-dom';
 import useInfo from 'states/Variable';
+import logo from 'assets/autto_logo.svg'
 
 function Header() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Header() {
     <HeaderContainer>
       <Wrapper>
         <LogoWrapper onClick={() => navigate('/')}>
-          <LogoText>Autto</LogoText>
+          <MainLogo src={logo}/>
         </LogoWrapper>
         
         <UserSection>
