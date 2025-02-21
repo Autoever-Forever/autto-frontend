@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const MainLogo = styled.img`
   text-align: center;
-  width:40%;
+  width:50%;
+  margin: 1rem;
 `;
 
 export const Wrapper = styled.div`
