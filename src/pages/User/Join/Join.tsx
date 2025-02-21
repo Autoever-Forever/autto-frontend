@@ -6,7 +6,7 @@ function Join() {
   return (
     <Wrapper>
       <Title>회원가입</Title>
-      <SubTitle>회원이 되어 다양한 공연을 관람해</SubTitle>
+      <SubTitle>회원이 되어 다양한 공연을 관람해보세요!</SubTitle>
       <JoinForm />
     </Wrapper>
   );

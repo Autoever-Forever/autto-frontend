@@ -80,7 +80,7 @@ function DetailProduct() {
 
           <LabelWrapper>
             <Text width="30%">공연 시간</Text>
-            <Text width="60%">시작 시간 ({data.runningTime})</Text>
+            <Text width="60%">시작 시간 ({data.runningTime} 분)</Text>
           </LabelWrapper>
 
           <LabelWrapper>

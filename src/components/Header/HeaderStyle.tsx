@@ -30,8 +30,8 @@ export const LogoWrapper = styled.div`
 `;
 
 export const MainLogo = styled.img`
-  width: 2rem;
-  padding: 10px;
+  width: 10%;
+  margin: 10px;
 `;
 
 export const UserSection = styled.div`
