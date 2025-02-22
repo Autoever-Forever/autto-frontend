@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MainLogo = styled.img`
   text-align: center;
   width:50%;
-  margin: 1rem;
+  margin: 2rem;
 `;
 
 export const Wrapper = styled.div`
